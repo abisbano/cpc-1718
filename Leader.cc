@@ -1,6 +1,19 @@
 /*
+  Leader.cc
+
   author: Andrea Bisbano
+  date: 06/10/17
   problem: http://practice.geeksforgeeks.org/problems/leaders-in-an-array/0#ExpectOP
+ 
+  solution description:
+    This solution uses a basic algorithm to find the maximum element of an array
+      (we keep a current maximimum and we scan the array updating that
+      value if a higher element is found).
+    Scanning the array in reverse order let us find leaders each time
+      we update the current maximum, since every element already seen
+      is smaller or equal than that.
+    This solution has time complexity O(n) since it requires to read
+      each element of the array only one time.
 */
 
 #include <iostream>
