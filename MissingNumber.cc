@@ -15,8 +15,7 @@
    The solution is R = T ^ S.
    That's true because the array A contains N-1 different element
      from 1 to N.
-   The cost in time is O(N) because we can use the same loop to
-     compute directly the solution S.
+   The cost in time is O(N) because we need only one loop to compute the xor.
    The extra space needed for this algorithm is O(logN) bits, since we
      need to allocate just a variabial which can store the maximum
      value of the array.
