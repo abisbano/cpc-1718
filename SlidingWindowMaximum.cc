@@ -17,8 +17,8 @@
  Thanks to step 3 we have the guarantee that at every step if there's an element no longer in the
    window is the one in the head (and so step 2 makes sense).
 
- The cost in time of the algorithm is O(nk), since we repeat n times a loop on the deque which its maximum size
-   is the size of the window.
+ The cost in time of the algorithm is O(n), since the main loop performs at most n pop and n push operation.
+ The cost in space is O(k) since the deque is at most of the same size of the window.
 
 */
 
