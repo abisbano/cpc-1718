@@ -17,10 +17,6 @@
  The cost in time of this algorithm is O(nlogn + n), so O(nlogn) since we need to sort the elements and,
   after sorting, read them at most one time. We don't need additional space for this solution.
 
- TODO:
- - (?) Implement a sorting algorithm
- - (?) Check the input (unicity of coordinates)
-
 */
 
 #include <iostream>
@@ -85,6 +81,8 @@ int main() {
 
   int X, Y, Population;
   for (int i = 0; i < Cities; ++i) {
+    // We consider the input is valid (i.e. there aren't two city with same coordinates)
+    //  so we don't perform any check on the input value.
     std::cin >> X;
     assert(X >= -MAX_COORDINATE && X <= MAX_COORDINATE);
     std::cin >> Y;
