@@ -4,64 +4,67 @@
   author: Andrea Bisbano
   date: 06/10/17
   problem: http://practice.geeksforgeeks.org/problems/leaders-in-an-array/0#ExpectOP
+
+  description:
+   The idea is to search the maximum element of the array starting scanning from the end.
+   By doing this, each time we update the maximum element we know that it's a leader because
+    is guaranteed that the past element are smaller than it.
  
-  solution description:
-    This solution uses a basic algorithm to find the maximum element of an array
-      (we keep a current maximimum and we scan the array updating that
-      value if a higher element is found).
-    Scanning the array in reverse order let us find leaders each time
-      we update the current maximum, since every element already seen
-      is smaller or equal than that.
-    This solution has time complexity O(n) since it requires to read
-      each element of the array only one time.
+  time cost: O(n) because we need to scan one time the whole array.
+  space cost: O(n) because for each element we need to store if it's a leader or not.
 */
 
 #include <iostream>
 #include <vector>
 #include <cassert>
 
+void findLeaders(const std::vector<uint32_t> &vec, std::vector<uint32_t> &leaders) {
+  uint32_t max = vec.back();
+  // last element is always a leader.
+  leaders.push_back(max);
 
-void printLeaders(const std::vector<int> &Vec) {
-  std::vector<int> Leaders;
-  Leaders.reserve(Vec.size());
-
-  int Max = Vec.back();
-
-  Leaders.push_back(Max);
-
-  for (auto It = Vec.rbegin() + 1, End = Vec.rend(); It != End; ++It) {
-    if (*It > Max) {
-      Max = *It;
-      Leaders.push_back(Max);
+  for (auto it = vec.rbegin() + 1, end = vec.rend(); it != end; ++it) {
+    if (*it > max) {
+      max = *it;
+      leaders.push_back(max);
     }
   }
 
-  for (auto It = Leaders.rbegin(), End = Leaders.rend(); It != End; ++It) {
-    std::cout << *It << " ";
-  }
-  std::cout << std::endl;
+  return;
 }
 
 int main() {
+  std::ios_base::sync_with_stdio(false);
+  std::cin.tie(NULL);
 
-  int TestCases = 0;
-  std::cin >> TestCases;
-  assert(TestCases > 0 && TestCases <= 100);
+  size_t T = 0;
+  std::vector<uint32_t> vec;
+  std::vector<uint32_t> leaders;
+  size_t N = 0;
+  uint32_t val = 0;
 
-  std::vector<int> Vec;
-  int Size = 0;
-  int Value = 0;
+  std::cin >> T;
+  assert(T > 0 && T <= 100);
 
-  for (int i = 0; i < TestCases; ++i) {
-    std::cin >> Size;
-    assert(Size > 0 && Size <=100);
-    Vec.reserve(Size);
-    for (int j = 0; j < Size; ++j) {
-      std::cin >> Value;
-      assert(Value >= 0 && Value <= 100);
-      Vec.push_back(Value);
+  for (int i = 0; i < T; ++i) {
+    std::cin >> N;
+    assert(N > 0 && N <=100);
+    vec.reserve(N);
+    leaders.reserve(N);
+    for (int j = 0; j < N; ++j) {
+      std::cin >> val;
+      assert(val >= 0 && val <= 100);
+      vec.push_back(val);
     }
-    printLeaders(Vec);
-    Vec.clear();
+    findLeaders(vec, leaders);
+
+    for (auto it = leaders.rbegin(), end = leaders.rend();
+         it != end; ++it) {
+      std::cout << *it << " ";
+    }
+    std::cout << "\n";
+
+    vec.clear();
+    leaders.clear();
   }
 }

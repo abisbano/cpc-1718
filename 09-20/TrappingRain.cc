@@ -5,7 +5,7 @@
   date: 27/10/17
   problem: http://practice.geeksforgeeks.org/problems/trapping-rain-water/0
 
-  solution description:
+  description:
    The idea of this solution is to precompute and store in an array of the same
    size of the input data the value of the maximum element in the left subarray
    of each element.
@@ -14,67 +14,67 @@
    between the current value and the minimun between the maximum to the right
    and to the left.
 
-   The cost in time for this algorithm in O(n), since we only need to scan the
-   whole array 2 times. And the cost in space in also O(n) since we need to
-   store a new array of the same size of the original problem.
+  time cost: O(n), because we need to scan the array 2 times.
+  space cost: O(n) to store the support array of the same length.
  */
 
 #include<vector>
 #include<iostream>
 #include<cassert>
+#include<algorithm>
 
-int trappingRain(const std::vector<int> &Vec) {
-  int Result = 0;
-  std::vector<int> LeftMax;
-  LeftMax.reserve(Vec.size());
-  int CurrentMax = -1; // We use a dummy value for the first element,
-                       // since it hasn't a left subarray.
+int32_t trappingRain(const std::vector<int32_t> &vec) {
+  int32_t result = 0;
+  std::vector<int32_t> leftMax;
+  leftMax.reserve(vec.size());
+  int32_t currentMax = -1; // We use a dummy value for the first element,
+                           // since it hasn't a left subarray.
 
-  for (auto It = Vec.begin(), End = Vec.end(); It != End; ++It) {
-    LeftMax.push_back(CurrentMax);
-    if (*It > CurrentMax) {
-      CurrentMax = *It;
+  for (auto it = vec.begin(), end = vec.end(); it != end; ++it) {
+    leftMax.push_back(currentMax);
+    if (*it > currentMax) {
+      currentMax = *it;
     }
   }
 
-  CurrentMax = -1; // We use the same variable for the maximum of the right subarray
+  currentMax = -1; // We use the same variable for the maximum of the right subarray
 
-  auto It2 = LeftMax.rbegin();
-  for (auto It1 = Vec.rbegin(), End = Vec.rend(); It1 != End; ++It1, ++It2) {
-    if (*It1 > CurrentMax) {
-      CurrentMax = *It1;
+  auto it2 = leftMax.rbegin();
+  for (auto it1 = vec.rbegin(), end = vec.rend(); it1 != end; ++it1, ++it2) {
+    if (*it1 > currentMax) {
+      currentMax = *it1;
     } else {
-      if (*It1 < *It2) {
-        Result += (std::min(CurrentMax, *It2) - *It1);
+      if (*it1 < *it2) {
+        result += (std::min(currentMax, *it2) - *it1);
       }
     }
   }
-  return Result;
+  return result;
 }
 
 int main() {
+  std::ios_base::sync_with_stdio(false);
+  std::cin.tie(NULL);
 
-  int TestCases;
-  std::cin >> TestCases;
-  assert(TestCases > 0 && TestCases <= 100);
+  size_t T;
+  std::vector<int32_t> vec;
+  size_t N;
+  int32_t val;
 
-  std::vector<int> Vec;
-  int Size;
-  int Element;
+  std::cin >> T;
+  assert(T > 0 && T <= 100);
 
-  for (int i = 0; i < TestCases; ++i) {
-    std::cin >> Size;
-    assert(Size > 2 && Size <= 100);
-
-    Vec.reserve(Size);
-
-    for (int j = 0; j < Size; ++j) {
-      std::cin >> Element;
-      assert(Element >= 0 && Element < 10);
-      Vec.push_back(Element);
+  for (size_t i = 0; i < T; ++i) {
+    std::cin >> N;
+    assert(N > 2 && N <= 100);
+    vec.reserve(N);
+    for (size_t j = 0; j < N; ++j) {
+      std::cin >> val;
+      assert(val >= 0 && val < 10);
+      vec.push_back(val);
     }
 
-    std::cout << trappingRain(Vec) << std::endl;
-    Vec.clear();
+    std::cout << trappingRain(vec) << "\n";
+    vec.clear();
   }
 }

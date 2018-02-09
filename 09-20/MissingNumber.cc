@@ -5,7 +5,7 @@
   date: 18/10/17
   problem: http://practice.geeksforgeeks.org/problems/missing-number-in-array/0
  
-  solution description:
+  description:
    This solution exploit the property of xor operation
      a ^ b ^ a = b
    Let N be the length of the given array A and T be the xor of the
@@ -13,38 +13,39 @@
    We compute S, the xor of the elements of the array:
      S = A[1] ^ A[2] ^ ... ^ A[N-1]
    The solution is R = T ^ S.
-   That's true because the array A contains N-1 different element
-     from 1 to N.
-   The cost in time is O(N) because we need only one loop to compute the xor.
-   The extra space needed for this algorithm is O(logN) bits, since we
-     need to allocate just a variabial which can store the maximum
-     value of the array.
+   That's true because the array A contains N-1 different element from 1 to N.
+
+  time cost: O(N) because we need to scan one time all the elemnts of th  array.
+  space cost: O(1) because we need to store only a extra variable to store the xor od the array.
 */
 
 #include <iostream>
 #include <cassert>
 
 int main() {
+  std::ios_base::sync_with_stdio(false);
+  std::cin.tie(NULL);
 
-  int TestCases = 0;
-  std::cin >> TestCases;
-  assert(TestCases > 0 && TestCases <= 200);
+  size_t T = 0;
+  size_t size = 0;
+  uint32_t val = 0;
+  uint32_t result;
 
-  int Size = 0;
-  int Value = 0;
+  std::cin >> T;
+  assert(T > 0 && T <= 200);
 
-  for (int i = 0; i < TestCases; ++i) {
-    std::cin >> Size;
-    assert(Size > 0 && Size <= 1000);
-    int Result = 0;
-    for (int j = 1; j < Size; ++j) {
+  for (size_t i = 0; i < T; ++i) {
+    std::cin >> size;
+    assert(size > 0 && size <= 1000);
+    result = 0;
+    for (size_t j = 1; j < size; ++j) {
       // We start the loop from 1 to simplify the computation.
-      std::cin >> Value;
-      assert(Value >= 0 && Value <= 1000);
-      Result ^= j;
-      Result ^= Value;
+      std::cin >> val;
+      assert(val >= 0 && val <= 1000);
+      result ^= j;
+      result ^= val;
     }
-    Result ^= Size;
-    std::cout << Result << std::endl;
+    result ^= size;
+    std::cout << result << "\n";
   }
 }
