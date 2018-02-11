@@ -1,21 +1,18 @@
 /*
-  TrappingRain.cc
-
-  author: Andrea Bisbano
-  date: 27/10/17
-  problem: http://practice.geeksforgeeks.org/problems/trapping-rain-water/0
-
-  description:
-   The idea of this solution is to precompute and store in an array of the same
-   size of the input data the value of the maximum element in the left subarray
-   of each element.
-   After that we scan the original array in reverse order, keeping track of the
-   maximum value so far. For each element, the water trapped is the difference
-   between the current value and the minimun between the maximum to the right
-   and to the left.
-
-  time cost: O(n), because we need to scan the array 2 times.
-  space cost: O(n) to store the support array of the same length.
+ TrappingRain.cc
+ Author: Andrea Bisbano
+ Date: 27/10/17
+ Problem: http://practice.geeksforgeeks.org/problems/trapping-rain-water/0
+ Solution:
+  The idea of this solution is to precompute and store in an array of the same
+  size of the input data the value of the maximum element in the left subarray
+  of each element.
+  After that we scan the original array in reverse order, keeping track of the
+  maximum value so far. For each element, the water trapped is the difference
+  between the current value and the minimun between the maximum to the right
+  and to the left.
+ Time cost: O(n), because we need to scan the array 2 times.
+ Space cost: O(n) to store the support array of the same length.
  */
 
 #include<vector>

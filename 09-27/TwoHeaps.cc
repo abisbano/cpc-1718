@@ -1,33 +1,17 @@
 /*
-  TwoHeaps.cc
-
-  author: Andrea Bisbano
-  date: 20/12/17
-  problem: http://codeforces.com/problemset/problem/353/B?locale=en
-
-  solution description:
-
- The idea of this solution it to divide the values in two sets: the first containing
+ TwoHeaps.cc
+ Author: Andrea Bisbano
+ Date: 20/12/17
+ Problem: http://codeforces.com/problemset/problem/353/B?locale=en
+ Solution:
+  The idea of this solution it to divide the values in two sets: the first containing
   only the values that appears at most 2 times and the second with the others.
- After that, we divide the values in the first set among the two heaps in an even way,
+  After that, we divide the values in the first set among the two heaps in an even way,
   with the caution of inserting the values that appears two times in both heaps.
- The values of the second set are inserted at random to fill the two heaps.
- By doing that the number of possible combination is the maximum possible.
-
- In the implementation we sort the values in increasing order, saving the original
-  position. After that we scan the sorted array and for each value we have tree possibilities:
- 1. is the first time we find a value
- 2. is the second time we find a value
- 3. we already found the value more than two times.
- In cases 1 and 2 we add the current value to one of the two heaps. To guarantee that
-  the heaps are balanced and the repeated values are in both of them, two consecutive
-  values are putted in different heaps (this is true for every value, not only the
-  repeated one)
- In the third case, we store the value for later processing and after scanning the
-  whole array we insert the values at random in both heaps to fill them.
-
- The cost in time of this algorithm is O(nlogn) because of the sorting and we don't
-  need addition space to perform the operations.
+  The values of the second set are inserted at random to fill the two heaps.
+  By doing that the number of possible combination is the maximum possible.
+ Time cost: O(nlogn) because we need to sort the elements.
+ Space cost: O(1)
 */
 
 #include <iostream>
@@ -35,92 +19,84 @@
 #include <vector>
 #include <algorithm>
 
-class Element {
-  int Position;
-  int Value;
+class element {
+  uint32_t position;
+  uint32_t value;
 
 public:
-  Element(int P, int V) : Position(P), Value(V) { }
+  element(uint32_t p, uint32_t v) : position(p), value(v) { }
 
-  int getPosition() {
-    return Position;
+  uint32_t getPosition() const {
+    return position;
   }
 
-  int getValue() {
-    return Value;
-  }
-
-  friend bool operator<(const Element& lhs, const Element& rhs) {
-    return lhs.Value < rhs.Value;
+  uint32_t getValue() const {
+    return value;
   }
 
 };
 
-int twoHeaps(std::vector<Element> &Vec, std::vector<int> &Result) {
+uint32_t twoHeaps(std::vector<element> &vec, std::vector<uint32_t> &result) {
 
-  std::sort(Vec.begin(), Vec.end());
+  std::sort(vec.begin(), vec.end(), [] (const element& lhs, const element& rhs) {
+    return lhs.getValue() < rhs.getValue();
+  });
 
-  int Distinct = 0;
-  int Current = 0;
-  int Heap = 1;
-  bool MoreThanTwo = false;
+  uint32_t distinct = 0;
+  uint32_t current = 0;
+  uint32_t heap = 1;
+  bool moreThanTwo = false;
+  std::vector<uint32_t> duplicates;
 
-  std::vector<int> Duplicates;
-
-  for (auto E : Vec) {
-
-    if (E.getValue() != Current || !MoreThanTwo) {
-      MoreThanTwo = false;
-      Result[E.getPosition()] = Heap;
-      Heap = (Heap == 1) ? 2 : 1;
-      ++Distinct;
+  for (auto el : vec) {
+    if (el.getValue() != current || !moreThanTwo) {
+      moreThanTwo = false;
+      result[el.getPosition()] = heap;
+      heap = (heap == 1) ? 2 : 1;
+      ++distinct;
     } else {
-      Duplicates.push_back(E.getPosition());
+      duplicates.push_back(el.getPosition());
     }
-    if (E.getValue() == Current) {
-      MoreThanTwo = true;
+    if (el.getValue() == current) {
+      moreThanTwo = true;
     } else {
-      Current = E.getValue();
+      current = el.getValue();
     }
   }
 
-
-  //  TODO: This could be written in a cleaner way...
-  int i = 0;
-  for (; i < Duplicates.size() / 2 ; ++i) {
-    Result[Duplicates[i]] = 1;
+  size_t i = 0;
+  for (; i < duplicates.size() / 2 ; ++i) {
+    result[duplicates[i]] = 1;
   }
-  for (; i < Duplicates.size(); ++i) {
-    Result[Duplicates[i]] = 2;
+  for (; i < duplicates.size(); ++i) {
+    result[duplicates[i]] = 2;
   }
 
-  return (Distinct/2 * (Distinct - Distinct/2));
+  return (distinct/2 * (distinct - distinct/2));
 }
 
-
 int main() {
-  int Size;
-  int K;
-  std::vector<Element> Vec;
-  long Value;
+  std::ios_base::sync_with_stdio(false);
+  std::cin.tie(NULL);
+  size_t N;
+  std::vector<element> vec;
+  uint32_t value;
 
-  std::cin >> Size;
-  assert(Size >= 1 && Size <= 100);
+  std::cin >> N;
+  assert(N >= 1 && N <= 100);
 
-  for (int i = 0; i < Size*2; ++i) {
-    std::cin >> Value;
-    assert(Value >= 10 && Value <= 99);
-    Vec.emplace_back(i, Value);
+  for (size_t i = 0; i < N*2; ++i) {
+    std::cin >> value;
+    assert(value >= 10 && value <= 99);
+    vec.emplace_back(i, value);
   }
 
-  std::vector<int> Result(Size*2, 0);
-  auto Distinct = twoHeaps(Vec, Result);
+  std::vector<uint32_t> result(N*2, 0);
+  auto distinct = twoHeaps(vec, result);
 
-  std::cout << Distinct << std::endl;
-  for (auto i : Result) {
+  std::cout << distinct << std::endl;
+  for (auto i : result) {
     std::cout << i << " ";
   }
-  std::cout << std::endl;
-
-
+  std::cout << "\n";
 }

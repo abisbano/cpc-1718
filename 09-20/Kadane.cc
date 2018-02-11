@@ -1,24 +1,20 @@
 /*
-  Kadane.cc
-
-  author: Andrea Bisbano
-  date: 10/10/17
-  problem: http://practice.geeksforgeeks.org/problems/kadanes-algorithm/0
-
-  description:
-   This solution exploits two properties of the subarray with maximum sum:
-   1. Sum of values of each subarray of the optimum subarray is positive.
+ Kadane.cc
+ Author: Andrea Bisbano
+ Date: 10/10/17
+ Problem: http://practice.geeksforgeeks.org/problems/kadanes-algorithm/0
+ Solution:
+  This solution exploits two properties of the subarray with maximum sum:
+  1. Sum of values of each subarray of the optimum subarray is positive.
       Consider the array [3 -4 5], here the sum of subarray [3 -4] is -1. If
       we consider the whole array as solution, the result is 4, instead if we
       remove that subarray we see there's a better solution (which is 5).
-   2. The value that precede the first value of the optimal subarray is
+  2. The value that precede the first value of the optimal subarray is
       a negative one. This is easier to prove: if that value is positive, then
       we might add it to the solution to have an higher value.
-   Using these two properties we can iterate only one time over the element of the array.
-
-  time cost: O(n) because we need to scan one time the whole array.
-  space cost: O(1) because we don't need additional storage.
-
+  Using these two properties we can iterate only one time over the element of the array.
+ Time cost: O(n) because we need to scan one time the whole array.
+ Space cost: O(1)
  */
 
 #include<vector>

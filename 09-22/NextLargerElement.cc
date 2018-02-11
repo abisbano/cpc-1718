@@ -1,23 +1,18 @@
 /*
-  NextLargerElement.cc
-
-  author: Andrea Bisbano
-  date: 10/11/17
-  problem: http://practice.geeksforgeeks.org/problems/next-larger-element/0
- 
-  solution description:
- The idea of this solution is to use a stack to store, in increasing order, the position of the elements
-   for which we still have to find the next larger element.
- At each step of the loop we remove from the head (pop) all the elements smaller than the current one
-   and we set that one as the next larger element for the previously removed elements.
- After that we add the element to the top of the stack and we know that the remaingn elements are larger
-   than that.
-
- The cost in time is O(n), because for each element we perform just one push operation and at most one
-   pop operation (if it has a next larger element); also the cost in space is O(n) because in the worst case
-   we need a stack of the same size of the input array (i.e all elements are sorted in decreasing
-   order and none has a next larger element).
-
+ NextLargerElement.cc
+ Author: Andrea Bisbano
+ Date: 10/11/17
+ Problem: http://practice.geeksforgeeks.org/problems/next-larger-element/0
+ Solution:
+  We want to use a stack to store, in increasing order, the position of the elemnts for which we still
+  have to find the next larger element. At each step of the loop, we remove from the head all the elements
+  smaller than the current one, which is set as NLE for all the previously removed elements. After that,
+  we push the current element to the head of the stack and we know for construction that the other
+  elements in the stack are largher than that
+ Time cost: O(n) beacuse for element we perform at most one push and one pop operation.
+ Space cost: O(n) because we need to allocate the stack and in worst case scenario it can be of the same
+              size of the input array (i.e. that occurs when the input element are sorted in decreasing
+              order, so none has a NLE).
 */
 
 #include <iostream>
@@ -25,49 +20,50 @@
 #include <cassert>
 #include <stack>
 
-void nextLargerElement(const std::vector<int> &Vec, std::vector<int> &Result) {
-  std::stack<int> S;
+void nextLargerElement(const std::vector<int> &vec, std::vector<int> &result) {
+  std::stack<int> st;
 
-  for (int i = 0; i < Vec.size(); ++i) {
-    while ((!S.empty()) && Vec[S.top()] <= Vec[i]) {
-      Result[S.top()] = Vec[i];
-      S.pop();
+  for (int i = 0; i < vec.size(); ++i) {
+    while ((!st.empty()) && vec[st.top()] <= vec[i]) {
+      result[st.top()] = vec[i];
+      st.pop();
     }
-    S.push(i);
+    st.push(i);
   }
 
 }
 
 int main() {
+  std::ios_base::sync_with_stdio(false);
+  std::cin.tie(NULL);
 
-  int TestCases = 0;
-  std::cin >> TestCases;
-  assert(TestCases > 0 && TestCases <= 200);
+  int T = 0;  std::vector<int> vec;
+  std::vector<int> result;
+  int size = 0;
+  int val = 0;
 
-  std::vector<int> Vec;
-  std::vector<int> Result;
-  int VecSize = 0;
-  int Value = 0;
+  std::cin >> T;
+  assert(T > 0 && T <= 200);
 
-  for (int i = 0; i < TestCases; ++i) {
-    std::cin >> VecSize;
-    assert(VecSize > 0 && VecSize <= 1000);
-    Vec.reserve(VecSize);
-    Result = std::vector<int>(VecSize, -1);
+  for (int i = 0; i < T; ++i) {
+    std::cin >> size;
+    assert(size > 0 && size <= 1000);
+    vec.reserve(size);
+    result = std::vector<int>(size, -1);
 
-    for (int j = 0; j < VecSize; ++j) {
-      std::cin >> Value;
+    for (int j = 0; j < size; ++j) {
+      std::cin >> val;
       // This assertion is commented out because it invalidates the test case on geeksforgeek,
       // even if the problem states that each element is in [1, 1000].
-      //assert(Value > 0 && Value <= 1000);
-      Vec.push_back(Value);
+      //assert(val > 0 && val <= 1000);
+      vec.push_back(val);
     }
-    nextLargerElement(Vec, Result);
-    for (int k : Result) {
+    nextLargerElement(vec, result);
+    for (int k : result) {
       std::cout << k << " ";
     }
-    std::cout << std::endl;
-    Vec.clear();
-    Result.clear();
+    std::cout << "\n";
+    vec.clear();
+    result.clear();
   }
 }

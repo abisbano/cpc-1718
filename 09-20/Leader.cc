@@ -1,17 +1,14 @@
 /*
-  Leader.cc
-
-  author: Andrea Bisbano
-  date: 06/10/17
-  problem: http://practice.geeksforgeeks.org/problems/leaders-in-an-array/0#ExpectOP
-
-  description:
-   The idea is to search the maximum element of the array starting scanning from the end.
-   By doing this, each time we update the maximum element we know that it's a leader because
+ Leader.cc
+ Author: Andrea Bisbano
+ Date: 06/10/17
+ Problem: http://practice.geeksforgeeks.org/problems/leaders-in-an-array/0#ExpectOP
+ Solution:
+  The idea is to search the maximum element of the array starting scanning from the end.
+  By doing this, each time we update the maximum element we know that it's a leader because
     is guaranteed that the past element are smaller than it.
- 
-  time cost: O(n) because we need to scan one time the whole array.
-  space cost: O(n) because for each element we need to store if it's a leader or not.
+ Time cost: O(n) because we need to scan one time the whole array.
+ Space cost: O(n) because for each element we need to store if it's a leader or not.
 */
 
 #include <iostream>

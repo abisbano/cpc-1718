@@ -1,15 +1,11 @@
 /*
-  Megacity.cc
-
-  author: Andrea Bisbano
-  date: 19/11/17
-  problem: http://codeforces.com/problemset/problem/160/C?locale=en
-
-  solution description:
-
-
-
- TODO:
+ FindPair.cc
+ Author: Andrea Bisbano
+ Date: 19/11/17
+ Problem: http://codeforces.com/problemset/problem/160/C?locale=en
+ Solution:
+ Time ost:
+ Space cost:
 
 */
 
@@ -40,6 +36,9 @@ std::pair<T,T> findPair( std::vector<T> &Vec, int K) {
 }
 
 int main() {
+  std::ios_base::sync_with_stdio(false);
+  std::cin.tie(NULL);
+  
   int Size;
   int K;
   std::vector<long> Vec;

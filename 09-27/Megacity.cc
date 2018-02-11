@@ -1,22 +1,15 @@
 /*
-  Megacity.cc
-
-  author: Andrea Bisbano
-  date: 18/11/17
-  problem: http://codeforces.com/problemset/problem/424/B?locale=en
-
-  solution description:
-
- The idea is to consider each city in increasing distance from the center and for each of them compute the
+ Megacity.cc
+ Author: Andrea Bisbano
+ Date: 18/11/17
+ Problem: http://codeforces.com/problemset/problem/424/B?locale=en
+ Solution:
+  The idea is to consider each city in increasing distance from the center and for each of them compute the
   total population. When the value reach the given threshold (one million in this case) we simply return
   the distance of the last considered city as the required radius, if we reach the last element and the sum
-  is less than one million we simply return the special value -1,
- To do so we use a support class that stores the distance from the center and the population of a given city.
- We don't need to store the coordinates of each city because we consider that each one has a unique pair.
-
- The cost in time of this algorithm is O(nlogn + n), so O(nlogn) since we need to sort the elements and,
-  after sorting, read them at most one time. We don't need additional space for this solution.
-
+  is less than one million there isn't a solution and we return the special value -1.
+ Time cost: O(nlogn) because we need to sort the elements and read them after.
+ Space cost: O(1)
 */
 
 #include <iostream>
@@ -28,71 +21,72 @@
 #define MAX_COORDINATE 10000
 #define POPULATION 1000000
 
-class City {
+class city {
   // We store directly the distance from the origin (we assume every city has unique coordinates)
-  double Distance;
-  int Population;
+  double distance;
+  uint64_t population;
 public:
-  City(int X, int Y, int P) : Population(P) {
-    Distance = sqrt(X*X + Y*Y);
+  city(int64_t x, int64_t y, uint64_t p) : population(p) {
+    distance = sqrt(x*x + y*y);
   }
 
-  City(double D, int P) : Distance(D), Population(P) {}
+  city(double d, uint64_t p) : distance(d), population(p) { }
 
   double getDistance() const {
-    return Distance;
+    return distance;
   }
 
-  int getPopulation() const {
-    return Population;
+  uint64_t getPopulation() const {
+    return population;
   }
 
-  friend bool operator<(const City& lhs, const City& rhs) {
+  friend bool operator<(const city& lhs, const city& rhs) {
     // If two city are at the same distance, we sort first the one with higher population.
-    if (lhs.getDistance() == rhs.getDistance()) {
-      return lhs.getPopulation() > rhs.getPopulation();
+    if (lhs.distance == rhs.distance) {
+      return lhs.population > rhs.population;
     }
-    return lhs.getDistance() < rhs.getDistance();
+    return lhs.distance < rhs.distance;
   }
 
 };
 
-double computeMegacity(std::vector<City> Vec, int TotalPopulation) {
+double computeMegacity(std::vector<city> vec, uint64_t totalPopulation) {
 
-  std::sort(Vec.begin(), Vec.end());
-  for(City C : Vec) {
-    TotalPopulation += C.getPopulation();
-    if (TotalPopulation >= POPULATION)
-      return C.getDistance();
+  std::sort(vec.begin(), vec.end());
+  for(city c : vec) {
+    totalPopulation += c.getPopulation();
+    if (totalPopulation >= POPULATION)
+      return c.getDistance();
   }
   return -1;
 }
 
 int main() {
-  int Cities;
-  int StartingPopulation;
-  std::vector<City> Neighbors;
+  std::ios_base::sync_with_stdio(false);
+  std::cin.tie(NULL);
 
-  std::cin >> Cities;
-  assert(Cities >= 1 && Cities <= 1000);
-  std::cin >> StartingPopulation;
-  assert(StartingPopulation >= 1 && StartingPopulation < POPULATION);
-  Neighbors.reserve(Cities);
+  size_t cities;
+  uint64_t startingPopulation;
+  std::vector<city> neighbors;
+  int64_t x, y;
+  uint64_t population;
 
-  int X, Y, Population;
-  for (int i = 0; i < Cities; ++i) {
-    // We consider the input is valid (i.e. there aren't two city with same coordinates)
-    //  so we don't perform any check on the input value.
-    std::cin >> X;
-    assert(X >= -MAX_COORDINATE && X <= MAX_COORDINATE);
-    std::cin >> Y;
-    assert(Y >= -MAX_COORDINATE && Y <= MAX_COORDINATE);
-    std::cin >> Population;
-    assert(Population >= 1 && Population <= POPULATION);
-    Neighbors.emplace_back(X,Y,Population);
+  std::cin >> cities;
+  assert(cities >= 1 && cities <= 1000);
+  std::cin >> startingPopulation;
+  assert(startingPopulation >= 1 && startingPopulation < POPULATION);
+  neighbors.reserve(cities);
+
+  for (size_t i = 0; i < cities; ++i) {
+    std::cin >> x;
+    assert(x >= -MAX_COORDINATE && x <= MAX_COORDINATE);
+    std::cin >> y;
+    assert(y >= -MAX_COORDINATE && y <= MAX_COORDINATE);
+    std::cin >> population;
+    assert(population >= 1 && population <= POPULATION);
+    neighbors.emplace_back(x, y, population);
   }
 
-  double Result = computeMegacity(Neighbors, StartingPopulation);
   std::cout.precision(8);
-  std::cout << Result << std::endl;
+  std::cout << computeMegacity(neighbors, startingPopulation) << "\n";
 }

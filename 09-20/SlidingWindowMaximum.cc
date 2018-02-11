@@ -1,24 +1,21 @@
 /*
-  SlidingWindowMaximum.cc
-
-  author: Andrea Bisbano
-  date: 27/10/17
-  problem: http://practice.geeksforgeeks.org/problems/maximum-of-all-subarrays-of-size-k/0
- 
-  description:
-   Given an array A on n elements, a window (of size k), we want to use a Double-Ended Queue Q to store the
-    ordered positions of the elements of A in the current window. By doing so the head of Q will always
-    contain the maximum element.
-   The starting window is in the range (-n, -1) and we repeat the following steps n times:
-   1. Slide the window of one position right
-   2. Remove the head of Q if it's no longer in the window.
-   3. Add the new element from the tail and remove all the elements above which are smaller than the current.
-   4. Report the head as the maximum of the current window (if the whole window is within A)
-   Thanks to step 3 we have the guarantee that at every step if there's an element no longer in the
-    window is the one in the head (and so step 2 makes sense).
-
-  space cost: O(n) beacuse the main loop performs at most n pop and n push operations.
-  space cost: O(k) because the deque is at most of the same size of the window.
+ SlidingWindowMaximum.cc
+ Author: Andrea Bisbano
+ Date: 27/10/17
+ Problem: http://practice.geeksforgeeks.org/problems/maximum-of-all-subarrays-of-size-k/0
+ Solution:
+  Given an array A on n elements, a window (of size k), we want to use a Double-Ended Queue Q to store the
+  ordered positions of the elements of A in the current window. By doing so the head of Q will always
+  contain the maximum element.
+  The starting window is in the range (-n, -1) and we repeat the following steps n times:
+  1. Slide the window of one position right
+  2. Remove the head of Q if it's no longer in the window.
+  3. Add the new element from the tail and remove all elements above which are smaller than the current.
+  4. Report the head as the maximum of the current window (if the whole window is within A)
+  Thanks to step 3 we have the guarantee that at every step if there's an element no longer in the
+  window is the one in the head (and so step 2 makes sense).
+ Time cost: O(n) beacuse the main loop performs at most n pop and n push operations.
+ Space cost: O(k) because the deque is at most of the same size of the window.
 */
 
 #include <iostream>
