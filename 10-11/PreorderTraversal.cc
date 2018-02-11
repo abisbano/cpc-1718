@@ -1,24 +1,19 @@
 /*
-  PreorderTraversal.cc
-
-  author: Andrea Bisbano
-  date: 04/01/18
-  problem: https://practice.geeksforgeeks.org/problems/check-for-bst/1
-
-  solution description:
-
- This solution exploit the fact that in a preorder traversal we find first the father, then the left
+ PreorderTraversal.cc
+ Author: Andrea Bisbano
+ Date: 04/01/18
+ Problem: https://practice.geeksforgeeks.org/problems/preorder-traversal-and-bst/0
+ Solution:
+  This solution exploit the fact that in a preorder traversal we find first the father, then the left
   subtree and then the right one. So for each value we have two cases: the value is either larger or
   smaller than the value of the father.
- In case is smaller, we compare the current value with the last ancestor which has a right child, if
+  In case is smaller, we compare the current value with the last ancestor which had a right child, if
   is greater than that the input can't represent a BST, otherwise we store the current value in a stack
   and we continue the computation.
- In case is larger, we search in the stack the real father of that value (i.e. the first value smaller
+  In case is larger, we search in the stack the real father of that value (i.e. the first value smaller
   than the current). If the stack is empty the father will be the previous value.
-
- The cost in time of this algorithm is O(n) because when we compare a value stored in the stack we also
-  remove that, so we have at most 2n comparisons. For the same reason the additional cost in space is
-  O(n), beacuse the stack can't exceed the original number of node.
+ Time cost: O(n) because we have at most 2n comparisons.
+ Space cost: O(n) because the stack size can't exceed the original number of nodes.
 */
 
 #include <cassert>

@@ -1,16 +1,11 @@
 /*
-  InversionCount.cc
-
-  author: Andrea Bisbano
-  date: 28/12/17
-  problem: http://www.spoj.com/problems/INVCNT/
-
-  solution description:
-
-
-
- TODO:
-
+ InversionCount.cc
+ Author: Andrea Bisbano
+ Date: 28/12/17
+ Problem: http://www.spoj.com/problems/INVCNT/
+ Solution:
+ Time cost:
+ Space cost:
 */
 
 #include <iostream>

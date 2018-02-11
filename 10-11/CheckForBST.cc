@@ -1,23 +1,18 @@
 /*
-  CheckForBST.cc
-
-  author: Andrea Bisbano
-  date: 02/01/18
-  problem: https://practice.geeksforgeeks.org/problems/check-for-bst/1
-
-  solution description:
- The idea of this solution is to compute the min and max values of a tree and compare those values
+ CheckForBST.cc
+ Author: Andrea Bisbano
+ Date: 02/01/18
+ Problem: https://practice.geeksforgeeks.org/problems/check-for-bst/1
+ Solution:
+  The idea of this solution is to compute the min and max values of a tree and compare those values
   with the root to see if it's a BST or not (i.e. a tree is a BST if the maximum value of the left
   subtree is smaller than the value of the root and the minimum value of the right subtree is smaller
   than the value of the root).
- To compute that we use the funcion `maybeComputeMinMax' which, given a Node and a boolean value,
+  To compute that we use the funcion `maybeComputeMinMax' which, given a Node and a boolean value,
   returns the minimum and maximum values of the tree iif it's a BST, otherwise the values returned
   can be any.
-
- The cost of the algorithm is O(n) because we need to traverse the whole tree and we don't need additional
-  space because the function is recursive. We would need additional space for a stack if the visit is
-  iterative.
-
+ Time cost: O(n) because we need to traverse the whole tree.
+ Space cost: O(1)
 */
 
 /*
