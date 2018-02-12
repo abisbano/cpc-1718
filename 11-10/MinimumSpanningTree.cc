@@ -1,15 +1,17 @@
 /*
-
  MinimumSpanningTree.cc
-
- author: Andrea Bisbano
- date: 17/01/18
- problem: http://www.spoj.com/problems/MST/
-
- solution description:
-  TO BE WRITTEN
- */
-
+ Author: Andrea Bisbano
+ Date: 17/01/18
+ Problem: http://www.spoj.com/problems/MST/
+ Solution:
+  The solution to this problem is an implementation of the Krukal's algorithm.
+  We create a set for each node of the graph, then we sort the edges in non decreasing order by
+  weight. For each edge, if the two nodes belongs to two different sets they are merged in
+  one set. The set containing all nodes is the MST of that graph.
+ Time cost: O(|E|+log|V|)
+ Space cost: O(1)
+ Note: Code for CPP14.
+*/
 
 #include <iostream>
 #include <vector>

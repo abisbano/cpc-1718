@@ -112,17 +112,19 @@ int main() {
 
   for (size_t i = 0; i < n; ++i) {
     std::cin >> cost;
-    assert(true);
+    assert(cost >= 0 && cost <= 1000000000);
     graph.emplace_back(cost);
     finish.emplace_back(i, 0);
   }
 
   std::cin >> m;
-  assert(true);
+  assert(m >= 0 && m <= 300000);
 
   for (size_t i = 0; i < m; ++i) {
     std::cin >> l >> r;
-    assert(true);
+    assert(l >= 1 && l <= n);
+    assert(r >= 1 && r <= n);
+    assert(l != r);
     graph[l-1].adjacent.push_back(r-1);
     graph[r-1].adjacentInv.push_back(l-1);
   }

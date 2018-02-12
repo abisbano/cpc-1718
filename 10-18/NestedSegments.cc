@@ -1,20 +1,16 @@
 /*
-  NestedSegments.cc
-
-  author: Andrea Bisbano
-  date: 14/01/18
-  problem: http://codeforces.com/problemset/problem/652/D?locale=en
-
-  solution description:
- The idea of this solution is to use a BIT B to keep track of right ends of the processed segments.
- We order the segments in decreasing order of the left end and for each couple <l,r> we first compute
+ NestedSegments.cc
+ Author: Andrea Bisbano
+ Date: 14/01/18
+ Problem: http://codeforces.com/problemset/problem/652/D?locale=en
+ Solution:
+  The idea of this solution is to use a BIT B to keep track of right ends of the processed segments.
+  We order the segments in decreasing order of the left end and for each couple <l,r> we first compute
   sum(r) and after that we add 1 in position r of the BIT.
- We use this ordering so we can just ignore the segments we still have to process because their left
+  We use this ordering so we can just ignore the segments we still have to process because their left
   end is outside of the current range.
- The cost for the sorting in O(nlogn), where n is the number of segments. For each segment the cost in
-  time for both operation is O(logn), so the total cost of this algorithm is O(nlogn).
- The cost in space for storing the BIT is O(n).
-
+ Time cost: O(nlogn) because the cost os sorting id dominating the costs of other operations (O(logn)).
+ Space cost: O(n) to store the BIT.
 */
 
 #include <iostream>
