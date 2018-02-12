@@ -1,13 +1,17 @@
 /*
-  AlternativeThinking.cc
-
-  author: Andrea Bisbano
-  date: 18/01/18
-  problem: http://codeforces.com/problemset/problem/603/A?locale=en
-
-  solution description:
- TO BE WRITTEN
- */
+ AlternativeThinking.cc
+ Author: Andrea Bisbano
+ Date: 18/01/18
+ Problem: http://codeforces.com/problemset/problem/603/A?locale=en
+ Solution:
+  This algorithm counts the number of characters that are different from its predecessor and add
+  to that result 2 because a flipping can increse the length of the subsequence of ad most 2.
+  The only case when don't increse the subsequence length by 2 is when the subsequence in the
+  whole sequence. So after the computation we choose the minimum between this value and the length
+  of the input string.
+ Time cost: O(N) because we need to read the whole string one time.
+ Space cost: O(1)
+*/
 
 #include <iostream>
 #include <cassert>
@@ -36,7 +40,7 @@ int main() {
   std::cin >> n;
   std::cin >> str;
 
-  std::cout << countAlternative(str, n) << std::endl;
+  std::cout << countAlternative(str, n) << "\n";
   return 0;
 
 }

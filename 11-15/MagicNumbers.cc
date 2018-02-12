@@ -1,12 +1,14 @@
 /*
-  MagicNumbers.cc
-
-  author: Andrea Bisbano
-  date: 18/01/18
-  problem: http://codeforces.com/problemset/problem/320/A?locale=en
-
-  solution description:
- TO BE WRITTEN
+ MagicNumbers.cc
+ Author: Andrea Bisbano
+ Date: 18/01/18
+ Problem: http://codeforces.com/problemset/problem/320/A?locale=en
+ Solution:
+  The idea is to search the numbers composing a magic number with a greedy approch. We look every
+  digit of the input number looking if it can be part of a magic number. When we find an impossible
+  concatenation the algorithm terminates with false response, true otherwise.
+ Time cost: O(N) where N is the number of digits of the input number.
+ Space cost: O(1)
  */
 
 #include <iostream>

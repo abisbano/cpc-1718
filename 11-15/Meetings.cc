@@ -1,12 +1,14 @@
 /*
-  Meetings.cc
-
-  author: Andrea Bisbano
-  date: 18/01/18
-  problem: https://practice.geeksforgeeks.org/problems/n-meetings-in-one-room/0
-
-  solution description:
- TO BE WRITTEN
+ Meetings.cc
+ Author: Andrea Bisbano
+ Date: 18/01/18
+ Problem: https://practice.geeksforgeeks.org/problems/n-meetings-in-one-room/0
+ Solution:
+  The idea is to sort the meeting in increasing order of finishing time, then we choose with a
+  greedy approach the first meeting which its starting time is after the finishing time of the
+  preovious one and so on.
+ Time cost: O(NlogN) because we need to sort the input data.
+ Space cost: O(1)
  */
 
 #include <iostream>

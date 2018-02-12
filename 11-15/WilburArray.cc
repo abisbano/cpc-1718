@@ -1,13 +1,16 @@
 /*
-  WilburArray.cc
-
-  author: Andrea Bisbano
-  date: 18/01/18
-  problem: http://codeforces.com/problemset/problem/596/B?locale=en
-
-  solution description:
- TO BE WRITTEN
- */
+ WilburArray.cc
+ Author: Andrea Bisbano
+ Date: 18/01/18
+ Problem: http://codeforces.com/problemset/problem/596/B?locale=en
+ Solution:
+  The idea is to keep a counter K which starts from 0 that represent the previous element of the
+  array. For each element of the array we compute the difference between the value and K and update
+  K with the current value. The sum of differences is the minumum number of operation to create the
+  result array.
+ Time cost: O(N) to scan the input array.
+ Space cost: O(1) beacuse we need only one support variable.
+*/
 
 #include <iostream>
 #include <cassert>
@@ -15,9 +18,7 @@
 
 uint64_t wilburArray(const std::vector<int64_t> &vec) {
   uint64_t result = 0;
-
   int64_t current = 0;
-
   for (const int64_t &v : vec) {
     if (v > current) {
       result += (v - current);
@@ -26,7 +27,6 @@ uint64_t wilburArray(const std::vector<int64_t> &vec) {
     }
     current = v;
   }
-
   return result;
 }
 
@@ -48,5 +48,4 @@ int main() {
   }
 
   std::cout << wilburArray(vec) << "\n";
-
 }

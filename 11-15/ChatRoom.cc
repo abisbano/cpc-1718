@@ -1,14 +1,16 @@
 /*
-  ChatRoom.cc
-
-  author: Andrea Bisbano
-  date: 18/01/18
-  problem: http://codeforces.com/problemset/problem/58/A?locale=en
-
-  solution description:
-  TO BE WRITTEN
-
- */
+ ChatRoom.cc
+ Author: Andrea Bisbano
+ Date: 18/01/18
+ Problem: http://codeforces.com/problemset/problem/58/A?locale=en
+ Solution:
+  The idea is to search the letter composing the word `hello' with a greedy approach: we scan the
+  input string looking for one letter per time and when it's found we start looking for the next one.
+  If and when the whole word is found the algorithm terminate, otherwise when we finish scanning the
+  input string the algorithm returns a negative response.
+ Time cost: O(N) in worst case because we need to scan the whole input string.
+ Space cost: O(1)
+*/
 
 #include<iostream>
 #include<cassert>
