@@ -1,12 +1,16 @@
 /*
-
  LongestPrefixSuffix.cc
- https://practice.geeksforgeeks.org/problems/longest-prefix-suffix/0
-
- Solution description:
-
-
- */
+ Author: Andrea Bisbano
+ Date: 12/02/18
+ Problem: https://practice.geeksforgeeks.org/problems/longest-prefix-suffix/0
+ Solution:
+  The idea is to create an array LPS where for each i, LPS[i] is the maximum length of a prefix which
+  is also a suffix in the substring from char 0 to i. To do so we use the preprocessing algorithm
+  of KMP search.
+ TODO: explain KMP algorithm
+ Time cost: O(n)
+ Space cost: O(n)
+*/
 
 #include <iostream>
 #include <string>
@@ -14,46 +18,41 @@
 #include <cassert>
 
 
-int computePrefixFunction(const std::string& Text, const int N) {
+int computePrefixFunction(const std::string& text, size_t n) {
+  std::vector<int> lps(n,0);
+  uint32_t len = 0;
 
-  std::vector<int> Pie(N,0);
-//  Pie.reserve(N);
-
-//  Pie.push_back(0);
-  int K = 0;
-  char cache;
-
-  for (int q = 1;  q < N; ++q) {
-    cache = Text.at(q);
-    while (K > 0 && Text.at(K) != cache)
-      K = Pie[K];
-    if (Text.at(K) == cache) {
-      ++K;
+  size_t i = 1;
+  while (i < n) {
+    if (text[i] == text[len]) {
+      ++len;
+      lps[i] = len;
+      ++i;
+    } else {
+      if (len != 0) {
+        len = lps[len-1];
+      } else {
+        lps[i] = 0;
+        ++i;
+      }
     }
-    Pie[q] = K;
-//    Pie.push_back(K);
-
   }
-
-  return Pie[N-1];
+  return lps[n-1];
 }
 
 int main() {
+  std::ios_base::sync_with_stdio(false);
+  std::cin.tie(NULL);
 
-  int TestCases;
+  size_t T;
+  std::string text;
 
-  std::cin >> TestCases;
-  assert(TestCases >= 1 && TestCases <= 100);
+  std::cin >> T;
+  assert(T >= 1 && T <= 100);
 
-  std::cin.clear();
-  std::cin.ignore(100000,'\n');
-
-  std::string Text;
-
-  for (int i = 0; i < TestCases; ++i) {
-    std::getline(std::cin, Text);
-
-    std::cout << computePrefixFunction(Text, Text.length()) << std::endl;
+  for (size_t i = 0; i < T; ++i) {
+    std::cin >> text;
+    std::cout << computePrefixFunction(text, text.length()) << "\n";
   }
   return 0;
 }
