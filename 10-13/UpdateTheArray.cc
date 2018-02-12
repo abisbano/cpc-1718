@@ -1,19 +1,17 @@
 /*
-  UpdateTheArray.cc
-
-  author: Andrea Bisbano
-  date: 12/01/18
-  problem: http://www.spoj.com/problems/UPDATEIT/
-
-  solution description:
- Given ad update (l, r, val) to the array A, instead of updating all the elements in the range (l, r)
+ UpdateTheArray.cc
+ Author: Andrea Bisbano
+ Date: 12/01/18
+ Problem: http://www.spoj.com/problems/UPDATEIT/
+ Solution description:
+  Given an update (l, r, val) to the array A, instead of updating all the elements in the range (l, r)
   we update only A[l] and A[r+1] increasing and decresing their value by val.
- After that we can compute the prefix sum of the array and in each position we will have the updated
+  After that we can compute the prefix sum of the array and in each position we will have the updated
   value of the original array.
- We can do this because the queries are after all the update operation and so we pay only one time
+  We can do this because the queries are after all the update operation and so we pay only one time
   the biggest cost of the process.
- The cost in time for this solution is O(1) for each update action and each query and O(n) for the computation
-  of the updated array. The cost in space is O(n) because we need to store the new array.
+ Time cost: O(n) for each query and O(1) for each update.
+ Space cost: O(n) to store the prefix sum array.
 */
 
 #include <iostream>
@@ -38,7 +36,6 @@ int main() {
   uint32_t n, u, q;
   uint32_t l, r, val;
   uint32_t index;
-
 
   std::cin >> testCases;
   assert(testCases >= 1 && testCases <= 10);

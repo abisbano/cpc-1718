@@ -1,21 +1,17 @@
 /*
-  LittleGirlMaximumSum.cc
-
-  author: Andrea Bisbano
-  date: 10/01/18
-  problem: http://codeforces.com/problemset/problem/276/C?locale=en
-
-  solution description:
- The idea of this solution is to compute the number of times each element is called in a query and sort the
+ LittleGirlMaximumSum.cc
+ Author: Andrea Bisbano
+ Date: 10/01/18
+ Problem: http://codeforces.com/problemset/problem/276/C?locale=en
+ Solution:
+  The idea of this solution is to compute the number of times each element is called in a query and sort the
   element in a way s.t. the largest value is called the most.
- To do so, we create an array F s.t., given a query (l, r), we increase F[l] and decrease F[r]. By doing
+  To do so, we create an array F s.t. given a query (l, r), we increase F[l] and decrease F[r]. By doing
   that, the prefix sum of F in any position will be the number of times that this position is queried.
- After the computation of the prefix sum of F, we sort it and we sort the input one. And at last we compute
+  After the computation of the prefix sum of F, we sort it and we sort the input one. And at last we compute
   the maximum sum by just summing the element i F[i] times.
-
- The cost in time of the algorithm is O(n) for the computation of the prefix sum, O(nlogn) for the sorting
-  and O(n) for the computation of the sum. So the total cost is O(nlogn). The cost in space is O(n) because
-  we need to store the frequncy array and its prefix sum.
+ Time cost: O(nlogn) because the sorting cost is dominant.
+ Space cost: O(n) vecause we need to store the frequency array and its prefix sum array.
 */
 
 #include <iostream>

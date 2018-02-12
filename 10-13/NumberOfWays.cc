@@ -1,19 +1,16 @@
 /*
-  NumberOfWays.cc
-
-  author: Andrea Bisbano
-  date: 10/01/18
-  problem: http://codeforces.com/problemset/problem/466/C?locale=en
-
-  solution description:
- The idea of this solution is to compute the sum S of the elements of the array A[1..n]. If that number isn't
+ NumberOfWays.cc
+ Author: Andrea Bisbano
+ Date: 10/01/18
+ Problem: http://codeforces.com/problemset/problem/466/C?locale=en
+ Solution:
+  The idea of this solution is to compute the sum S of the elements of the array A[1..n]. If that number isn't
   divisible for 3 the answer is trivial and is false. Otherwise, we compute and array C where in position i
-  we store the number of suffixes of A[i..n] that has as um S/3.
- After that we compute the prefix sum of A and when in position i we have the value S/3, we add C[i+2]
+  we store the number of suffixes of A[i..n] that has as sum S/3.
+  After that we compute the prefix sum of A and when in position i we have the value S/3, we add C[i+2]
   to the number of the possible solution.
- The cost of this algorithm is O(n), where n is the number of elements of the array. The cost in space
-  is also O(n) because we need to store the array C.
-
+ Time cost: O(n) because we need to compute the suffix sum and the prefix sum of the input array.
+ Space cost: O(n) because we need to store the array C.
  */
 
 #include <iostream>
@@ -76,6 +73,6 @@ int main() {
     vec.push_back(value);
   }
 
-  std::cout << numberOfWays(vec) << std::endl;
+  std::cout << numberOfWays(vec) << "\n";
   return 0;
 }

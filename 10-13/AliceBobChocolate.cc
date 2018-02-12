@@ -1,17 +1,15 @@
 /*
-  AliceBobChocolate.cc
-
-  author: Andrea Bisbano
-  date: 09/01/18
-  problem: http://codeforces.com/problemset/problem/6/C?locale=en
-
-  solution description:
- The idea of this solution is to compute prefix sum and suffix sum of the same array. We don't need to
+ AliceBobChocolate.cc
+ Author: Andrea Bisbano
+ Date: 09/01/18
+ Problem: http://codeforces.com/problemset/problem/6/C?locale=en
+ solution:
+  The idea of this solution is to compute prefix sum and suffix sum of the same array. We don't need to
   compute the whole sums, so at each step of the iteration we choose to increment only the one that has
   a smaller value and we keep count of the number of elements processed by the prefix sum. When we have
   processed all the elements of the array we can stop the algorithm and we have the solution.
- The cost in time for this algorithm is O(n), where n is the number of elements in the array and the
-  cost in space is O(1), since we don't have to store the prefix/suffix sum but only the partial sum.
+ Time cost: O(n)
+ Space cost: O(1) because we don't have to store the whole prefix/suffix sum.
 */
 
 #include <iostream>
@@ -19,7 +17,6 @@
 #include <vector>
 
 uint32_t aliceBobChocolate(std::vector<uint32_t> bars) {
-
   size_t barAlice = -1, barBob = bars.size() ;
   uint64_t timeAlice = 0, timeBob = 0;
   uint32_t resultAlice = 0, resultBob;
@@ -34,7 +31,6 @@ uint32_t aliceBobChocolate(std::vector<uint32_t> bars) {
     }
   }
   return barAlice + 1;
-
 }
 
 int main() {
