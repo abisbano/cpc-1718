@@ -1,13 +1,18 @@
 /*
-  XTotalShapes.cc
-
-  author: Andrea Bisbano
-  date: 15/01/18
-  problem: https://practice.geeksforgeeks.org/problems/x-total-shapes/0
-
-  solution description:
- TO BE WRITTEN
-*/
+ XTotalShapes.cc
+ Author: Andrea Bisbano
+ Date: 15/01/18
+ Problem: https://practice.geeksforgeeks.org/problems/x-total-shapes/0
+ Solution:
+  The idea is to represent the input data as a boolean matrix where `X' are true values.
+  Starting from the top-left corner we push in a stack a pair of coordinates if the cell
+  contains a true value and we start counting a new shape. Then while there's something
+  in the stack, we set the current cell to `O' and we push to the stack the adjacents that
+  have an `X'.
+ Time cost: O(N) where N is the total number of characters.
+ Space cost: O(N) because adding only true values, the stack can't exceed the original
+             input size.
+ */
 
 #include <iostream>
 #include <cassert>
@@ -27,22 +32,22 @@ uint64_t countXShapes(std::vector<std::vector<bool>> &Matrix) {
     for (size_t j = 1; j <= M; ++j) {
 
       if (Matrix[i][j]) {
-        // new shape
         ++result;
-        std::cout << i << " " << j << std::endl;
         st.push(std::make_pair(i,j));
         while(!st.empty()) {
           auto vert = st.top();
           st.pop();
           size_t x = vert.first;
           size_t y = vert.second;
-          if (Matrix[x][y]) {
-            Matrix[x][y] = false;
-              st.push(std::make_pair(x-1, y));
-              st.push(std::make_pair(x, y-1));
-              st.push(std::make_pair(x+1, y));
-              st.push(std::make_pair(x, y+1));
-          }
+          Matrix[x][y] = false;
+          if (Matrix[x-1][y])
+            st.push(std::make_pair(x-1, y));
+          if (Matrix[x][y-1])
+            st.push(std::make_pair(x, y-1));
+          if (Matrix[x+1][y])
+            st.push(std::make_pair(x+1, y));
+          if (Matrix[x][y+1])
+            st.push(std::make_pair(x, y+1));
         }
       }
 
@@ -84,5 +89,7 @@ int main() {
     Matrix.push_back(std::vector<bool>(M+2,false));
 
     std::cout <<  countXShapes(Matrix) << std::endl;
+    Matrix.clear();
   }
 }
+

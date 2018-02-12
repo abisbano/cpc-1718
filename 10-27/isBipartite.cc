@@ -1,12 +1,14 @@
 /*
-  IsBipartite.cc
-
-  author: Andrea Bisbano
-  date: 16/01/18
-  problem: https://practice.geeksforgeeks.org/problems/bipartite-graph/1
-
-  solution description:
- TO BE WRITTEN
+ IsBipartite.cc
+ Author: Andrea Bisbano
+ Date: 16/01/18
+ Problem: https://practice.geeksforgeeks.org/problems/bipartite-graph/1
+ Solution:
+  The idea is to bi-color the graph. Every node is initialized with color 0 (which means no color).
+  For each node, we look for the adjacent and if one of them has the same color we return false,
+  otherwise we assing to that the other color.
+ Time cost: O(n^2) because the graph is represented with a adjacency matrix.
+ Space cost: O(1)
 */
 
 /*
@@ -27,11 +29,8 @@ bool isBipartite(int G[][MAX],int V) {
   std::vector<int> color(V,0);
 
   for (int i = 0; i < V; ++i) {
-    if (G[i][i] == 1)
-      return false;
     if (color[i] == 0)
       color[i] = 1;
-    int c = color[i];
     for (int j = 0; j < V; ++j) {
       if (G[i][j] == 0) continue;
       if (color[i] == color[j])
