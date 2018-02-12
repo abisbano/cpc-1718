@@ -1,15 +1,18 @@
 /*
-
  LearningLanguages.cc
-
- author: Andrea Bisbano
- date: 16/01/18
- problem: http://codeforces.com/contest/277/problem/A
-
- solution description:
-  TO BE WRITTEN
+ Author: Andrea Bisbano
+ Date: 16/01/18
+ Problem: http://codeforces.com/contest/277/problem/A
+ Solution:
+  The idea is to create a graph where each node can represent an emplyee or a language an the edges
+  can be only from one kind to the other and they represent the knowledge of a language.
+  Then, starting from each employee node that wasn't find yet, we compute the DFS and the cost is
+  the number of DFS we need to start to reach every employee node.
+  There is a special case when every employee know no language. In that case the cost is the number
+  of emplyees.
+ Time cost: O(N+M) because of the DFS.
+ Space cost: O(1)
  */
-
 
 #include <iostream>
 #include <vector>

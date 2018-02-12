@@ -1,15 +1,15 @@
 /*
-
  Checkposts.cc
-
- author: Andrea Bisbano
- date: 16/01/18
- problem: http://codeforces.com/problemset/problem/427/C?locale=en
-
- solution description:
-  TO BE WRITTEN
+ Author: Andrea Bisbano
+ Date: 16/01/18
+ Problem: http://codeforces.com/problemset/problem/427/C?locale=en
+ Solution:
+  The idea is that this problem is equivalent to Strongly Connected Components. To solve that, we
+  compute two times DFS, the second time considering the vertex in decreasing order of finishing
+  time. Then, for each SCC we select the minimium cost node computing it while doing the second DFS.
+ Time cost: O(N+M), the cost of the DFS.
+ Space cost: O(N) to store the finishing time for each node.
  */
-
 
 #include <iostream>
 #include <vector>
