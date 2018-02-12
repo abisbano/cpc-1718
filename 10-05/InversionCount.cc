@@ -4,8 +4,14 @@
  Date: 28/12/17
  Problem: http://www.spoj.com/problems/INVCNT/
  Solution:
- Time cost:
- Space cost:
+  The idea uses the merge sort algorithm to count the number of inversions. The number of inversions
+  is equal to the inversion of the two subarrays and the inversions during the merge step.
+  To count the number of inversion in this step we can consider that, given two indices i and j that
+  belong respectively at left and right subarray, if a[i] > a[j] then we have (mid-i) inversions.
+  That's true because the remaining values of the left subarray from i+1 are also greater than a[j]
+  because both subarrays are sorted.
+ Time cost: O(nlogn) because the cost of merge sort.
+ Space cost: O(1)
 */
 
 #include <iostream>
@@ -14,57 +20,44 @@
 #include <algorithm>
 
 
-// Merge
+// Merge operation
 template <typename T>
-int mergeCount(std::vector<T> &vec, int l, int middle, int r) {
-  int i = l;
-  int j = middle + 1;
-  std::vector<T> B((r-l)+1);
-  int k = 0;
-  int inv = 0;
+uint64_t mergeCount(std::vector<T> &vec, std::vector<T> &tmp, size_t l, size_t middle, size_t r) {
+  size_t i = l;
+  size_t j = middle;
+  size_t k = l;
+  uint64_t inv = 0;
 
-  while (i <= middle && j <= r) {
-    if (vec[i] < vec[j]) {
-//      B.push_back(Vec[i]);
-//      ++i;
-      B[k++] = vec[i++];
+  while (i <= middle -1 && j <= r) {
+    if (vec[i] <= vec[j]) {
+      tmp[k++] = vec[i++];
     } else {
-//      B.push_back(Vec[j]);
-//      ++j;
-      B[k++] = vec[j++];
-      inv += middle - i + 1;
+      tmp[k++] = vec[j++];
+      inv += middle - i;
     }
-//    ++k;
   }
+  // copy the rest of the array to tmp
+  while (i <= middle - 1)
+    tmp[k++] = vec[i++];
 
-  while (i <= middle) {
-    B[k] = vec[i];
-    ++k;
-//    B.push_back(Vec[i]);
-    ++i;
-  }
-
-  while (j <= r) {
-    B[k] = vec[j];
-    ++k;
-//    B.push_back(Vec[j]);
-    ++j;
-  }
-
-  std::copy(B.begin(), B.end(), vec.begin() + l);
+  while (j <= r)
+    tmp[k++] = vec[j++];
+  // update the original array.
+  for (i=l; i <= r; i++)
+    vec[i] = tmp[i];
 
   return inv;
 }
 
 // Merge Sort
 template <typename T>
-int sortCount(std::vector<T> &vec, size_t l, size_t r) {
+uint64_t sortCount(std::vector<T> &vec, std::vector<T> &tmp, size_t l, size_t r) {
   if (l >= r)
     return 0;
-  int middle = (l + r) / 2;
-  int leftInv = sortCount(vec, l, middle);
-  int rightInv = sortCount(vec, middle + 1, r);
-  return leftInv + rightInv + mergeCount(vec, l, middle, r);
+  size_t middle = (l + r) / 2;
+  uint64_t leftInv = sortCount(vec, tmp, l, middle);
+  uint64_t rightInv = sortCount(vec, tmp, middle + 1, r);
+  return leftInv + rightInv + mergeCount(vec, tmp, l, middle+1, r);
 }
 
 int main() {
@@ -81,12 +74,13 @@ int main() {
   for (int i = 0; i < testCases; ++i) {
     std::cin >> n;
     vec.reserve(n);
+    std::vector<uint64_t> tmp(n,0);
     for (int j = 0; j < n; ++j) {
       std::cin >> value;
       vec.push_back(value);
     }
     std::getline(std::cin, blank);
-    std::cout << sortCount(vec, 0, n-1) << std::endl;
+    std::cout << sortCount(vec, tmp, 0, n-1) << std::endl;
     vec.clear();
   }
 

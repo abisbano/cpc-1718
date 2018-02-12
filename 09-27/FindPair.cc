@@ -4,60 +4,59 @@
  Date: 19/11/17
  Problem: http://codeforces.com/problemset/problem/160/C?locale=en
  Solution:
- Time ost:
- Space cost:
-
+  The idea is to sort the input array in increasing order. Then the pair `k' will be the couple <a_i, a_j>
+  where i=k/n and j=((k-1)-l*n)/r and `r' in the number of keys equal to a_i and `l' the number of keys smaller
+  than a_i.
+ Time ost: O(nlogn) because we need to sort the input array.
+ Space cost: O(1)
 */
 
 #include <iostream>
 #include <cassert>
 #include <vector>
-#include <utility>
 #include <algorithm>
 
-template <typename T>
-std::pair<T,T> findPair( std::vector<T> &Vec, int K) {
-  std::sort(Vec.begin(), Vec.end());
+std::pair<int64_t, int64_t> findPair(std::vector<int64_t> &vec, size_t k) {
+  int64_t first, second;
 
+  std::sort(vec.begin(), vec.end());
+  size_t n = vec.size();
 
-  int Size = Vec.size();
-  for (int i = 0; i < Size; ++i) {
-    for (int j = 0; j < Size; ++j) {
-      std::cout << "(" << Vec[i] << "," << Vec[j] << ")\t";
-    }
-    std::cout << std::endl;
+  size_t i = (k-1) / n;
+  first = vec[i];
+  size_t l = 0;
+  for (; l < n; ++l) {
+    if (vec[l] == first) break;
   }
+  size_t r = std::count(vec.begin(), vec.end(), first);
+  second = vec[((k-1)-l*n)/r];
 
-  K--; // We decrease value K to have a 0-based value.
-  std::cout << "Index " << (K/Size) << " " << (K%Size) << std::endl;
-
-  return std::pair<T,T> (Vec[K/Size], Vec[K%Size]);
-
+  return std::make_pair(first, second);
 }
 
 int main() {
   std::ios_base::sync_with_stdio(false);
   std::cin.tie(NULL);
   
-  int Size;
-  int K;
-  std::vector<long> Vec;
-  long Value;
+  size_t size;
+  size_t k;
+  std::vector<int64_t> vec;
+  int64_t val;
 
-  std::cin >> Size;
-  assert(Size >= 1 && Size <= 10000);
-  Vec.reserve(Size);
-  std::cin >> K;
-  assert(K >= 1 && K <= Size*Size);
-  for (int i = 0; i < Size; ++i) {
-    std::cin >> Value;
-    assert(Value >= -1000000000 && Value <= 1000000000);
-    Vec.push_back(Value);
+  std::cin >> size;
+  assert(size >= 1 && size <= 10000);
+  vec.reserve(size);
+  std::cin >> k;
+  assert(k >= 1 && k <= size*size);
+  for (int i = 0; i < size; ++i) {
+    std::cin >> val;
+    assert(val >= -1000000000 && val <= 1000000000);
+    vec.push_back(val);
   }
 
-  auto Result = findPair(Vec, K);
+  auto result = findPair(vec, k);
 
-  std::cout << Result.first << " " << Result.second << std::endl;
+  std::cout << result.first << " " << result.second << std::endl;
 
 
 }
