@@ -4,11 +4,11 @@
  Date: 06/10/17
  Problem: http://practice.geeksforgeeks.org/problems/leaders-in-an-array/0#ExpectOP
  Solution:
-  The idea is to search the maximum element of the array starting scanning from the end.
-  By doing this, each time we update the maximum element we know that it's a leader because
-    is guaranteed that the past element are smaller than it.
+  We scan the array in reverse order and we keep track of the current maximum element.
+  Every time the maximum element is updated means we've found a new leader (since we
+  know all the elements on the right are smaller than that.
  Time cost: O(n) because we need to scan one time the whole array.
- Space cost: O(n) because for each element we need to store if it's a leader or not.
+ Space cost: O(n) because we need to store the values that are leader.
 */
 
 #include <iostream>
@@ -37,18 +37,18 @@ int main() {
   size_t T = 0;
   std::vector<uint32_t> vec;
   std::vector<uint32_t> leaders;
-  size_t N = 0;
+  size_t size = 0;
   uint32_t val = 0;
 
   std::cin >> T;
   assert(T > 0 && T <= 100);
 
   for (int i = 0; i < T; ++i) {
-    std::cin >> N;
-    assert(N > 0 && N <=100);
-    vec.reserve(N);
-    leaders.reserve(N);
-    for (int j = 0; j < N; ++j) {
+    std::cin >> size;
+    assert(size > 0 && size <=100);
+    vec.reserve(size);
+    leaders.reserve(size);
+    for (int j = 0; j < size; ++j) {
       std::cin >> val;
       assert(val >= 0 && val <= 100);
       vec.push_back(val);

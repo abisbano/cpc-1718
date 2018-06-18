@@ -4,7 +4,7 @@
  Date: 18/10/17
  Problem: http://practice.geeksforgeeks.org/problems/missing-number-in-array/0
  Solution:
-  This solution exploit the property of xor operation
+ This solution exploit this property of xor operation:
     a ^ b ^ a = b
   Let N be the length of the given array A and T be the xor of the
   expected elements of the array (T = 1 ^ 2 ^ ... ^ N)
@@ -12,8 +12,8 @@
     S = A[1] ^ A[2] ^ ... ^ A[N-1]
   The solution is R = T ^ S.
   That's true because the array A contains N-1 different element from 1 to N.
- Time cost: O(N) because we need to scan one time all the elemnts of th  array.
- Space cost: O(1) because we need to store only a extra variable to store the xor od the array.
+ Time cost: O(N) because we need to scan one time all the elemnts of the array.
+ Space cost: O(1) because we need to store only a extra variable to store the xor of the array.
 */
 
 #include <iostream>

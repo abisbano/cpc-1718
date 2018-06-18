@@ -4,13 +4,13 @@
  Date: 27/10/17
  Problem: http://practice.geeksforgeeks.org/problems/trapping-rain-water/0
  Solution:
-  The idea of this solution is to precompute and store in an array of the same
-  size of the input data the value of the maximum element in the left subarray
-  of each element.
+  We begin creating an array of the same size of the input array.
+  In each position of the new array we store the maximum value of the left
+  subarray starting from the same position in the original array.
   After that we scan the original array in reverse order, keeping track of the
   maximum value so far. For each element, the water trapped is the difference
-  between the current value and the minimun between the maximum to the right
-  and to the left.
+  between the current value and the minimun between the maximum of left and right
+  subarrays.
  Time cost: O(n), because we need to scan the array 2 times.
  Space cost: O(n) to store the support array of the same length.
  */
@@ -34,7 +34,7 @@ int32_t trappingRain(const std::vector<int32_t> &vec) {
     }
   }
 
-  currentMax = -1; // We use the same variable for the maximum of the right subarray
+  currentMax = -1; // Reset the value
 
   auto it2 = leftMax.rbegin();
   for (auto it1 = vec.rbegin(), end = vec.rend(); it1 != end; ++it1, ++it2) {
@@ -55,17 +55,17 @@ int main() {
 
   size_t T;
   std::vector<int32_t> vec;
-  size_t N;
+  size_t size;
   int32_t val;
 
   std::cin >> T;
   assert(T > 0 && T <= 100);
 
   for (size_t i = 0; i < T; ++i) {
-    std::cin >> N;
-    assert(N > 2 && N <= 100);
-    vec.reserve(N);
-    for (size_t j = 0; j < N; ++j) {
+    std::cin >> size;
+    assert(size > 2 && size <= 100);
+    vec.reserve(size);
+    for (size_t j = 0; j < size; ++j) {
       std::cin >> val;
       assert(val >= 0 && val < 10);
       vec.push_back(val);
