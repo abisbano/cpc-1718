@@ -43,12 +43,12 @@ int main() {
   std::cin >> T;
   assert(T > 0 && T <= 100);
 
-  for (int i = 0; i < T; ++i) {
+  for (size_t i = 0; i < T; ++i) {
     std::cin >> size;
     assert(size > 0 && size <=100);
     vec.reserve(size);
     leaders.reserve(size);
-    for (int j = 0; j < size; ++j) {
+    for (size_t j = 0; j < size; ++j) {
       std::cin >> val;
       assert(val >= 0 && val <= 100);
       vec.push_back(val);
