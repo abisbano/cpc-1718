@@ -5,9 +5,10 @@
  Problem: http://codeforces.com/problemset/problem/37/A?locale=en
  Solution:
   This solution don't use the comparison model. We exploit the fact that the maximum possibile length of
-  a bar is 1000 (and we call it M). We create a support array A of M+1, where for each i A[i] is the number
-  of bars of length i in the input. While we are creating the input array we compare the current value
-  to the maximum value so far, so we don't have to scan the whole support array.
+  a bar is 1000 (and we call it M). We create a support array A of M+1 elements, where for each i
+  A[i] is the number of bars of length i in the input.
+  While we are creating the input array we compare the current value to the maximum value so far,
+  so we don't have to scan the whole support array.
  Time cost: O(N) because we just have to scan the input array one time.
  Space cost: O(M) to store the support array.
 */
@@ -44,11 +45,11 @@ int main() {
   uint32_t resultTowers = 0;
 
   std::cin >> N;
-  assert(N > 0 && N <= 1000);
+  assert(N <= 1000);
   vec.reserve(N);
   for (uint32_t i = 0; i < N; ++i) {
     std::cin >> val;
-    assert(val >= 0 && val <= MAX_VALUE);
+    assert(val <= MAX_VALUE);
     vec.push_back(val);
   }
   computeTowers(vec, resultHeight, resultTowers);

@@ -29,16 +29,16 @@ int main() {
   uint32_t result;
 
   std::cin >> T;
-  assert(T > 0 && T <= 200);
+  assert(T <= 200);
 
   for (size_t i = 0; i < T; ++i) {
     std::cin >> size;
-    assert(size > 0 && size <= 1000);
+    assert(size <= 1000);
     result = 0;
     for (size_t j = 1; j < size; ++j) {
       // We start the loop from 1 to simplify the computation.
       std::cin >> val;
-      assert(val >= 0 && val <= 1000);
+      assert(val <= 1000);
       result ^= j;
       result ^= val;
     }

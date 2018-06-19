@@ -41,16 +41,16 @@ int main() {
   uint32_t val = 0;
 
   std::cin >> T;
-  assert(T > 0 && T <= 100);
+  assert(T <= 100);
 
   for (size_t i = 0; i < T; ++i) {
     std::cin >> size;
-    assert(size > 0 && size <=100);
+    assert(size <=100);
     vec.reserve(size);
     leaders.reserve(size);
     for (size_t j = 0; j < size; ++j) {
       std::cin >> val;
-      assert(val >= 0 && val <= 100);
+      assert(val <= 100);
       vec.push_back(val);
     }
     findLeaders(vec, leaders);

@@ -24,7 +24,7 @@
 #include <cassert>
 #include <deque>
 
-void slidingWindowMaximum(const std::vector<int32_t> &vec, std::vector<int32_t> &result, int32_t K) {
+void slidingWindowMaximum(const std::vector<uint32_t> &vec, std::vector<uint32_t> &result, int32_t K) {
   std::deque<int32_t> positions;
 
   for (int32_t i = 0; i < vec.size(); ++i) {
@@ -46,25 +46,25 @@ int main() {
   std::cin.tie(NULL);
 
   size_t T;
-  std::vector<int32_t> vec;
-  std::vector<int32_t> result;
-  int32_t N, K;
-  int32_t val;
+  std::vector<uint32_t> vec;
+  std::vector<uint32_t> result;
+  size_t N, K;
+  uint32_t val;
 
   std::cin >> T;
-  assert(T > 0 && T <= 200);
+  assert(T <= 200);
 
   for (size_t i = 0; i < T; ++i) {
     std::cin >> N;
-    assert(N > 0 && N <= 100);
+    assert(N <= 100);
     std::cin >> K;
-    assert(K > 0 && K <= N);
+    assert(K <= N);
     vec.reserve(N);
     result.reserve(N - K + 1);
 
     for (size_t j = 0; j < N; ++j) {
       std::cin >> val;
-      assert(val >= 0 && val <= 1000);
+      assert(val <= 1000);
       vec.push_back(val);
     }
     slidingWindowMaximum(vec, result, K);

@@ -20,11 +20,11 @@
 #include<cassert>
 #include<algorithm>
 
-int32_t trappingRain(const std::vector<int32_t> &vec) {
-  int32_t result = 0;
-  std::vector<int32_t> leftMax;
+uint32_t trappingRain(const std::vector<uint32_t> &vec) {
+  uint32_t result = 0;
+  std::vector<uint32_t> leftMax;
   leftMax.reserve(vec.size());
-  int32_t currentMax = -1; // We use a dummy value for the first element,
+  uint32_t currentMax = 0; // We use a dummy value for the first element,
                            // since it hasn't a left subarray.
 
   for (auto it = vec.begin(), end = vec.end(); it != end; ++it) {
@@ -34,7 +34,7 @@ int32_t trappingRain(const std::vector<int32_t> &vec) {
     }
   }
 
-  currentMax = -1; // Reset the value
+  currentMax = 0; // Reset the value
 
   auto it2 = leftMax.rbegin();
   for (auto it1 = vec.rbegin(), end = vec.rend(); it1 != end; ++it1, ++it2) {
@@ -54,20 +54,20 @@ int main() {
   std::cin.tie(NULL);
 
   size_t T;
-  std::vector<int32_t> vec;
+  std::vector<uint32_t> vec;
   size_t size;
-  int32_t val;
+  uint32_t val;
 
   std::cin >> T;
-  assert(T > 0 && T <= 100);
+  assert(T <= 100);
 
   for (size_t i = 0; i < T; ++i) {
     std::cin >> size;
-    assert(size > 2 && size <= 100);
+    assert(size <= 100);
     vec.reserve(size);
     for (size_t j = 0; j < size; ++j) {
       std::cin >> val;
-      assert(val >= 0 && val < 10);
+      assert(val < 10);
       vec.push_back(val);
     }
 
