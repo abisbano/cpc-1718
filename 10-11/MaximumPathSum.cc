@@ -4,11 +4,11 @@
  Date: 05/01/18
  Problem: https://practice.geeksforgeeks.org/problems/maximum-path-sum/1
  Solution:
-  The idea behind this solution is that for each node we have three possibilities:
-  1. is the root of the subtree covering the path
-  2. is a inner node of the path
-  3. is no part of the path
-  Exploiting this idea, we use a function that, given a node, returns the maximum value of the path from
+  The idea for this solution is that for each node there are three possibilities:
+  1. it is the root of the subtree covering the path
+  2. it is a inner node of the path
+  3. it is no part of the path
+  Exploiting this idea, the function returns, given a node, the maximum value of the path from
   a leaf to that inner node (case 2). If the given node has both left and right child, it also computes the
   value of the path composed by the node itself and the best possible paths of the two child.
   If a node is a leaf, it simply returns the value itself.

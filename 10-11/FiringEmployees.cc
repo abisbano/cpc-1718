@@ -6,9 +6,11 @@
  Solution:
   The idea of this solution is to create a tree where each node has as father its immediate senior.
   Mr. Alfred will be the root of that tree and the height of any node the number of its seniors.
-  Then we computes the prime numbers up to 2n using the sieve of Eratosthenes. After that, it's
-  immediate to compute if a employee is in the black list or not.
- Time cost: O(nloglogn) beacuse the cost is dominated by the cost of the sieve of Eratosthenes.
+  Then we compute the prime numbers up to 2n using the sieve of Eratosthenes. After that, it's
+  immediate to know if a employee is in the black list or not.
+ Time cost: O(nloglogn) because the cost is dominated by the sieve of Eratosthenes.
+            If we suppose to have a list of prime numbers (or an algorithm to compute them in O(1))
+            the cost of the rest of the algorithm is O(n).
  Space cost: O(n) because we need to store the primes up to 2n, where n is the number of emplyees.
 */
 
@@ -18,6 +20,7 @@
 #include <stack>
 #include <cmath>
 
+// Sieve of Eratosthenes
 void generatePrimes(std::vector<bool> &primes) {
   uint32_t n = primes.size();
   uint32_t square = (uint32_t) sqrt(n);

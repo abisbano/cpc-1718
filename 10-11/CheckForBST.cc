@@ -44,24 +44,27 @@ std::pair<int, int> maybeComputeMinMax(Node* root, bool *isBST) {
   int min = root->data;
   int max = root->data;
 
-  // If at any point the boolean becomes false, we do nothing.
-  if (*isBST) {
-    if (root->left) {
-      auto leftMinMax = maybeComputeMinMax(root->left, isBST);
-      if (leftMinMax.second > root->data) {
-        *isBST = false;
-      } else {
-        min = std::min(min, leftMinMax.first);
-      }
-    }
+  // It is a recursive function: if at any point in the computation
+  // the function discovers the tree isn't a BST, it doesn't need to
+  // continue computation and it can just return a useless value.
+  if (!(*isBST))
+    return std::make_pair(0,0);
 
-    if (root->right) {
-      auto rightMinMax = maybeComputeMinMax(root->right, isBST);
-      if (rightMinMax.first < root->data) {
-        *isBST = false;
-      } else {
-        max = std::max(max, rightMinMax.second);
-      }
+  if (root->left) {
+    auto leftMinMax = maybeComputeMinMax(root->left, isBST);
+    if (leftMinMax.second > root->data) {
+      *isBST = false;
+    } else {
+      min = std::min(min, leftMinMax.first);
+    }
+  }
+
+  if (root->right) {
+    auto rightMinMax = maybeComputeMinMax(root->right, isBST);
+    if (rightMinMax.first < root->data) {
+      *isBST = false;
+    } else {
+      max = std::max(max, rightMinMax.second);
     }
   }
 

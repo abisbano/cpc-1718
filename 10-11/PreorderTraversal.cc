@@ -4,14 +4,15 @@
  Date: 04/01/18
  Problem: https://practice.geeksforgeeks.org/problems/preorder-traversal-and-bst/0
  Solution:
-  This solution exploit the fact that in a preorder traversal we find first the father, then the left
-  subtree and then the right one. So for each value we have two cases: the value is either larger or
-  smaller than the value of the father.
-  In case is smaller, we compare the current value with the last ancestor which had a right child, if
-  is greater than that the input can't represent a BST, otherwise we store the current value in a stack
-  and we continue the computation.
-  In case is larger, we search in the stack the real father of that value (i.e. the first value smaller
-  than the current). If the stack is empty the father will be the previous value.
+  In a preorder traversal, the root of a tree is seen first, followed by its left subtree and then
+  its right subtree. The algorithm compares each value with its predecessor.
+  If the value is greater, then it has to be in the right subtree. The stack containing the right ancestors
+  is visited until it finds the first greater value, which is set as the father of the current node
+  (updating the variable `leftAncestor'). If the stack is empty, the value itself is assigned
+  to the variable.
+  If the value is smaller, then it has to be in the left subtree. If the value is smaller the variable
+  `leftAncestor' then this means that node is in the wrong subtree and thus the tree is not a BST.
+  Otherwise the values is pushed to the stack.
  Time cost: O(n) because we have at most 2n comparisons.
  Space cost: O(n) because the stack size can't exceed the original number of nodes.
 */
@@ -24,37 +25,37 @@
 
 bool PreorderTraversal(const std::vector<int32_t> &traversal) {
 
+  size_t size = traversal.size();
   int32_t leftAncestor = -1;
-  int32_t father = -1; // dummy value to have a for range loop
+  int32_t father = traversal[0];
   std::stack<int32_t> rightAncestor;
 
-  for (auto value : traversal) {
-    if (father == -1) {
-      father = value;
-      continue;
-    }
+  for (size_t i = 1; i < size; ++i) {
 
-    if (value > father) {
+    if (traversal[i] > father) {
+      // current value is in the right subtree (e.g. it updates leftAncestor)
       if (rightAncestor.empty()) {
-        leftAncestor = value;
+        leftAncestor = traversal[i];
       } else {
-        while (value < rightAncestor.top()) {
+        while (traversal[i] < rightAncestor.top()) {
           rightAncestor.pop();
         }
         leftAncestor = rightAncestor.top();
         rightAncestor.pop();
       }
-    }
-    else  {
-      if (value < leftAncestor) {
+
+    } else {
+      // current value is in the left subtree
+      if (traversal[i] < leftAncestor) {
         return false;
       }
-      rightAncestor.push(value);
+      rightAncestor.push(traversal[i]);
     }
-    father = value;
+    father = traversal[i];
   }
 
   return true;
+
 }
 
 int main() {
