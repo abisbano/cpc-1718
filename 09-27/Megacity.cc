@@ -4,11 +4,12 @@
  Date: 18/11/17
  Problem: http://codeforces.com/problemset/problem/424/B?locale=en
  Solution:
-  The idea is to consider each city in increasing distance from the center and for each of them compute the
-  total population. When the value reach the given threshold (one million in this case) we simply return
-  the distance of the last considered city as the required radius, if we reach the last element and the sum
-  is less than one million there isn't a solution and we return the special value -1.
- Time cost: O(nlogn) because we need to sort the elements and read them after.
+  We sort the cities by distance from the center. The we compute the total population
+  using one city at the time and starting from the nearest to the center.
+  If and when the computation reaches the given threshold (1000000) it returns the distance of
+  the last considered city, otherwise, if it doesn't reach that value and it has
+  already considered all the cities, it returns the special result -1.
+ Time cost: O(nlogn) to sort the elements.
  Space cost: O(1)
 */
 
@@ -51,7 +52,6 @@ public:
 };
 
 double computeMegacity(std::vector<city> vec, uint64_t totalPopulation) {
-
   std::sort(vec.begin(), vec.end());
   for(city c : vec) {
     totalPopulation += c.getPopulation();

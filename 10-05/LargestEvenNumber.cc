@@ -6,11 +6,11 @@
  Solution:
   The idea of this solution is to look for the smallest even digit of the input number and put it as the last
   digit of the result, while the remaining digits are sorted in reverse order.
-  To do so, we use the counting sort algorithm on the digits. After the counting phase, we search for the
-  smallest even number and if it's found we store it and we decrease the counter for that digit.
+  To do so, the algorithm uses the counting sort on the digits. After the counting phase, it searches for the
+  smallest even number and if it's succesful it stores it. Then it decreases the counter for that digit.
   After that, the remaining digits are sorted in reverse order and stored in the solution.
-  At that point, if there isn't any even number, we sorted all the digits and the solution is complete,
-  otherwise we still have to add the previously stored number at the end of the sequence.
+  In the end, if none even number was found, when the algorithm finish sorting digits the solution in complete,
+  otherwise it has to do an extra step and put the previously saved digit at the end of the solution.
  Time cost: O(N+M), is the same cost of the counting sort, where N is the number of digits and M the number
             of possible values for each digit (i.e it's a constant, 10).
  Space cost: O(1)

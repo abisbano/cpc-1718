@@ -4,13 +4,14 @@
  Date: 28/12/17
  Problem: http://www.spoj.com/problems/INVCNT/
  Solution:
-  The idea uses the merge sort algorithm to count the number of inversions. The number of inversions
-  is equal to the inversion of the two subarrays and the inversions during the merge step.
-  To count the number of inversion in this step we can consider that, given two indices i and j that
-  belong respectively at left and right subarray, if a[i] > a[j] then we have (mid-i) inversions.
-  That's true because the remaining values of the left subarray from i+1 are also greater than a[j]
-  because both subarrays are sorted.
- Time cost: O(nlogn) because the cost of merge sort.
+  The idea uses the merge sort algorithm to count the number of inversions. The total number of
+  inversions is the sum of the inversion of the two subarrays and the inversions during the merge step.
+  Given two indices i and j belonging respectively to the left and the right subarray, if
+  a[i] > a[j] then there are (mid - i) inversions.
+  This is true because the remaining values of the left subarray (with index greater than i) are
+  also greater than a[j] because both subarrays are sorted.
+  Exploiting this fact the algorithm counts the number or inversions.
+ Time cost: O(nlogn) which is the cost of the merge sort.
  Space cost: O(1)
 */
 
@@ -62,7 +63,7 @@ uint64_t sortCount(std::vector<T> &vec, std::vector<T> &tmp, size_t l, size_t r)
 
 int main() {
 
-  int testCases;
+  size_t testCases;
   std::vector<uint64_t> vec;
   size_t n;
   size_t value;
@@ -71,11 +72,11 @@ int main() {
   std::cin >> testCases;
   std::getline(std::cin, blank);
 
-  for (int i = 0; i < testCases; ++i) {
+  for (size_t i = 0; i < testCases; ++i) {
     std::cin >> n;
     vec.reserve(n);
     std::vector<uint64_t> tmp(n,0);
-    for (int j = 0; j < n; ++j) {
+    for (size_t j = 0; j < n; ++j) {
       std::cin >> value;
       vec.push_back(value);
     }

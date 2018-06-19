@@ -4,13 +4,15 @@
  Date: 20/12/17
  Problem: http://codeforces.com/problemset/problem/353/B?locale=en
  Solution:
-  The idea of this solution it to divide the values in two sets: the first containing
-  only the values that appears at most 2 times and the second with the others.
-  After that, we divide the values in the first set among the two heaps in an even way,
-  with the caution of inserting the values that appears two times in both heaps.
-  The values of the second set are inserted at random to fill the two heaps.
-  By doing that the number of possible combination is the maximum possible.
- Time cost: O(nlogn) because we need to sort the elements.
+  The algorithm sorts the input values keeping track of their original position.
+  After that it divides the values in two sets: the first one contains only the
+  first two occurences of each value (or just the first, if it's unique),
+  the second one all the values that already appeared at least 2 times.
+  Then it divide the values in the first set among the two heaps evenly, with
+  the caution of putting each duplicate in both heaps, then it proceed filling
+  the heaps using the elements of the second set.
+  This division maximizes the number of possible combinations.
+ Time cost: O(nlogn) to sort the elements.
  Space cost: O(1)
 */
 
