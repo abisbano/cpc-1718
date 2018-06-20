@@ -4,12 +4,12 @@
  Date: 08/01/18
  Problem: http://codeforces.com/problemset/problem/313/B?locale=en
  Solution:
-  Given the input string s of length n, the idea is to create a binary array B, where B[i] is 1 iif
-  s[i] = s[i+1], otherwise 0. After that, we precompute the prefix-sum of that array and then solving
-  the queries is immediate (i.e. reading of two array position and a subtraction).
+  Given the input string s of length n, the algorithm create a binary array B, where B[i] is 1 iif
+  s[i] = s[i+1], otherwise 0. Then it computes and stores the prefix sum of that array.
+  To solve a query is enough to read the prefix sums of the delimiters and compute the difference.
  Time cost: O(N+M) where N is the length of the whole string and O(N) the cost of the computation of the
             prefix sum. M is the number of queries and O(1) the cost of each one.
- Space cost: O(N) because we need to store thre prefix sum array.ì
+ Space cost: O(N) because we need to store the prefix sum array.
 */
 
 #include <iostream>

@@ -4,11 +4,11 @@
  Date: 10/01/18
  Problem: http://codeforces.com/problemset/problem/466/C?locale=en
  Solution:
-  The idea of this solution is to compute the sum S of the elements of the array A[1..n]. If that number isn't
-  divisible for 3 the answer is trivial and is false. Otherwise, we compute and array C where in position i
-  we store the number of suffixes of A[i..n] that has as sum S/3.
-  After that we compute the prefix sum of A and when in position i we have the value S/3, we add C[i+2]
-  to the number of the possible solution.
+  The algorithm computes the sum S of all the elements of the array A. If that number isn't
+  a multiple of 3 then it replies false. Otherwise, it computes the array C where in each
+  position `i' is stored the number of suffixes of the A[i..n] subarray that have sum equal
+  to S/3. Then it computes the prefix sum of A and for each position `i', if the sum is equal
+  to $/3, it increases the number of possible solutions by C[i+2].
  Time cost: O(n) because we need to compute the suffix sum and the prefix sum of the input array.
  Space cost: O(n) because we need to store the array C.
  */

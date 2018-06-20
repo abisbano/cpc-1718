@@ -4,14 +4,14 @@
  Date: 10/01/18
  Problem: http://codeforces.com/problemset/problem/276/C?locale=en
  Solution:
-  The idea of this solution is to compute the number of times each element is called in a query and sort the
-  element in a way s.t. the largest value is called the most.
-  To do so, we create an array F s.t. given a query (l, r), we increase F[l] and decrease F[r]. By doing
+  The algorithm computes the number of times each element is called in a query and sorts the
+  element in a way such that the largest value is called the most.
+  To do so, it creates an array F s.t. given a query (l, r), it increases F[l] and decreases F[r]. By doing
   that, the prefix sum of F in any position will be the number of times that this position is queried.
-  After the computation of the prefix sum of F, we sort it and we sort the input one. And at last we compute
-  the maximum sum by just summing the element i F[i] times.
+  After the computation of the prefix sum of F, it sorts that array and the input one. And at last it
+  computes the maximum sum by just summing the element i F[i] times.
  Time cost: O(nlogn) because the sorting cost is dominant.
- Space cost: O(n) vecause we need to store the frequency array and its prefix sum array.
+ Space cost: O(n) because we need to store the frequency array and its prefix sum array.
 */
 
 #include <iostream>

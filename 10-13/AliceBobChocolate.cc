@@ -4,12 +4,12 @@
  Date: 09/01/18
  Problem: http://codeforces.com/problemset/problem/6/C?locale=en
  solution:
-  The idea of this solution is to compute prefix sum and suffix sum of the same array. We don't need to
-  compute the whole sums, so at each step of the iteration we choose to increment only the one that has
-  a smaller value and we keep count of the number of elements processed by the prefix sum. When we have
-  processed all the elements of the array we can stop the algorithm and we have the solution.
- Time cost: O(n)
- Space cost: O(1) because we don't have to store the whole prefix/suffix sum.
+  The algorithm computes both prefix sum and suffix sum of the input array. Prefix sum represent Alice
+  and suffix sum Bob. At each step of computation, the algorithm chooses to increase only the smaller
+  value and it terminates when all the elements of the array have been processed one time, instead of
+  computing the whole sums.
+ Time cost: O(n) to scan the elements of the array.
+ Space cost: O(1) because there's no need to store whole prefix/suffix sum.
 */
 
 #include <iostream>

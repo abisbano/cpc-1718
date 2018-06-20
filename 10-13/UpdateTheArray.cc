@@ -4,13 +4,13 @@
  Date: 12/01/18
  Problem: http://www.spoj.com/problems/UPDATEIT/
  Solution description:
-  Given an update (l, r, val) to the array A, instead of updating all the elements in the range (l, r)
-  we update only A[l] and A[r+1] increasing and decresing their value by val.
-  After that we can compute the prefix sum of the array and in each position we will have the updated
+  Given an update (l, r, V) to the array A, instead of updating all the elements in the range (l, r)
+  the algorithm updates only A[l] and A[r+1] increasing and decresing their value by V.
+  After that it computes the prefix sum of the array and in each position there will be the updated
   value of the original array.
-  We can do this because the queries are after all the update operation and so we pay only one time
-  the biggest cost of the process.
- Time cost: O(n) for each query and O(1) for each update.
+  This strategy is possible because the queries are only after the update operation and then
+  there is the possibility to update only one time the whoe array, reducing the biggest cost.
+ Time cost: O(n) to compute the prefix sum. The single query is O(1).
  Space cost: O(n) to store the prefix sum array.
 */
 
