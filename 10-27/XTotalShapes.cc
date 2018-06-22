@@ -4,14 +4,17 @@
  Date: 15/01/18
  Problem: https://practice.geeksforgeeks.org/problems/x-total-shapes/0
  Solution:
-  The idea is to represent the input data as a boolean matrix where `X' are true values.
-  Starting from the top-left corner we push in a stack a pair of coordinates if the cell
-  contains a true value and we start counting a new shape. Then while there's something
-  in the stack, we set the current cell to `O' and we push to the stack the adjacents that
-  have an `X'.
+  The input data is represented as a boolean matrix, where `X' are true values
+  and `O' false one, and it's delimited by two extra columns and two extra rows with only
+  false values. The algorithm keeps a stack with the position to visit next.
+  The algorithm starts from the top-left corner, with an empty stack, and processes
+  all the positions. If it finds an `X' it adds all the adjacent `X' positions to the stack
+  and marks the current one as already visited (by changing its value to `O').
+  Every time the algorithm finds an `X' while not using the positions in the stack,
+  it means there's a new X shape, because the position in the stack are part of an
+  already discovered X shape.
  Time cost: O(N) where N is the total number of characters.
- Space cost: O(N) because adding only true values, the stack can't exceed the original
-             input size.
+ Space cost: O(N) the stack can't exceed the number of element of the matrix.
  */
 
 #include <iostream>
@@ -19,7 +22,6 @@
 #include <vector>
 #include <string>
 #include <stack>
-#include <tuple>
 
 uint64_t countXShapes(std::vector<std::vector<bool>> &Matrix) {
   size_t N = Matrix.size() - 2;

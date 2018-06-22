@@ -4,10 +4,10 @@
  Date: 12/02/18
  Problem: http://codeforces.com/problemset/problem/510/C?locale=en
  Solution:
-  The idea is to create a graph where each node represent an alphabet letter. Then we compute
-  the input strings adding an edge (u, v) if the letter u preceeds letter v in the order
-  we're looking for. Then we use DFS to see if the graph is acyclic and in that case we compute
-  its topological sort. This is the solution. If the graph has a cycle then there isn't a solution.
+  This algorithm creates a graph where each node represent an alphabet letter. Then is computes
+  the input strings adding an edge (u, v) if the letter u preceeds letter v in the solution's order.
+  Then it performs a DFS to check if the graph is acyclic and in that case its topological sort
+  is the solution. Otherwise, if the graph has a cycle there isn't a solution.
  Time cost: O(N+M) where N is 26 (the letter of the alphabet) and M is the number of dependencies
             (1 less than the number of strings).
  Space cost: O(1)

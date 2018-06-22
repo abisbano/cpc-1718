@@ -4,9 +4,10 @@
  Date: 16/01/18
  Problem: https://practice.geeksforgeeks.org/problems/bipartite-graph/1
  Solution:
-  The idea is to bi-color the graph. Every node is initialized with color 0 (which means no color).
-  For each node, we look for the adjacent and if one of them has the same color we return false,
-  otherwise we assing to that the other color.
+  This algorithm apply a 2-coloration to a graph. Every node is initialized with color 0 (e.g. no color),
+  then one node is colored with a color and all adjacents without a color with the opposite, and so on.
+  If a node has an adjacent which is already colored with the same color, then the algorithm stops
+  because the graph is not bipartite.
  Time cost: O(n^2) because the graph is represented with a adjacency matrix.
  Space cost: O(1)
 */
