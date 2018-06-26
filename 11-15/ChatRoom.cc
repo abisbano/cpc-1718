@@ -4,11 +4,11 @@
  Date: 18/01/18
  Problem: http://codeforces.com/problemset/problem/58/A?locale=en
  Solution:
-  The idea is to search the letter composing the word `hello' with a greedy approach: we scan the
-  input string looking for one letter per time and when it's found we start looking for the next one.
-  If and when the whole word is found the algorithm terminate, otherwise when we finish scanning the
-  input string the algorithm returns a negative response.
- Time cost: O(N) in worst case because we need to scan the whole input string.
+  The idea is to search the letter composing the word `hello' with a greedy approach: the algorithm scans
+  the input string looking for one letter per time and when it's found it starts looking for the next one.
+  If and when the whole word is found it terminates, otherwise it returns a negative response after
+  scanning the whole string.
+ Time cost: O(N) in worst case because it needs to scan the whole input string.
  Space cost: O(1)
 */
 

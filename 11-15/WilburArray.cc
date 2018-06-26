@@ -4,8 +4,8 @@
  Date: 18/01/18
  Problem: http://codeforces.com/problemset/problem/596/B?locale=en
  Solution:
-  The idea is to keep a counter K which starts from 0 that represent the previous element of the
-  array. For each element of the array we compute the difference between the value and K and update
+  This algorithm keeps a counter K that starts from 0 which represent the previous element of the
+  array. For each element of the array it computes the difference between the value and K and updates
   K with the current value. The sum of differences is the minumum number of operation to create the
   result array.
  Time cost: O(N) to scan the input array.

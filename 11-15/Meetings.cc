@@ -4,7 +4,7 @@
  Date: 18/01/18
  Problem: https://practice.geeksforgeeks.org/problems/n-meetings-in-one-room/0
  Solution:
-  The idea is to sort the meeting in increasing order of finishing time, then we choose with a
+  This algorithm sorts the meetings in increasing order of finishing time, then it chooses with a
   greedy approach the first meeting which its starting time is after the finishing time of the
   preovious one and so on.
  Time cost: O(NlogN) because we need to sort the input data.

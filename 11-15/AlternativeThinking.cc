@@ -5,11 +5,11 @@
  Problem: http://codeforces.com/problemset/problem/603/A?locale=en
  Solution:
   This algorithm counts the number of characters that are different from its predecessor and add
-  to that result 2 because a flipping can increse the length of the subsequence of ad most 2.
-  The only case when don't increse the subsequence length by 2 is when the subsequence in the
-  whole sequence. So after the computation we choose the minimum between this value and the length
-  of the input string.
- Time cost: O(N) because we need to read the whole string one time.
+  to that result 2 because a flipping can increse the length of the subsequence of at most 2.
+  The only case when increasing the subsequence length by 2 doesn't improve the result is when the
+  subsequence in the whole sequence itself. So after the computation the algorithm chooses the minimum
+  between that value and the length of the input string.
+ Time cost: O(N) to read the whole string one time.
  Space cost: O(1)
 */
 
