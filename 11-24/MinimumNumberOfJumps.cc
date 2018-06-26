@@ -1,14 +1,13 @@
 /*
-  MinimumNumberOfJumps.cc
+ MinimumNumberOfJumps.cc
+ Author: Andrea Bisbano
+ Date: 25/01/18
+ Problem: https://practice.geeksforgeeks.org/problems/minimum-number-of-jumps/0
+ Solution description:
 
-  author: Andrea Bisbano
-  date: 25/01/18
-  problem: https://practice.geeksforgeeks.org/problems/minimum-number-of-jumps/0
 
-  solution description:
-
- FIXME: Clean code and write description of solution
-
+ Time cost:
+ Space cost:
  */
 
 #include<vector>
@@ -16,12 +15,14 @@
 #include<cassert>
 #include<algorithm>
 
+#define INF 1000
+
 int64_t minimumNumberOfJumps(const std::vector<uint64_t> &vec) {
   if (vec.empty()) {
     return -1;
   }
   size_t N = vec.size();
-  std::vector<uint64_t> paths(N,1000);
+  std::vector<uint64_t> paths(N,INF);
   paths[0] = 0;
 
   for (size_t i = 0; i < N; ++i) {
@@ -29,7 +30,7 @@ int64_t minimumNumberOfJumps(const std::vector<uint64_t> &vec) {
       paths[j] = std::min(paths[j], paths[i] + 1);
     }
   }
-  return (paths[N-1] == 1000) ? -1 : paths[N-1];
+  return (paths[N-1] == INF) ? -1 : paths[N-1];
 }
 
 int main() {

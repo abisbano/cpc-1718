@@ -1,14 +1,18 @@
 /*
-  EditDistance.cc
-
-  author: Andrea Bisbano
-  date: 25/01/18
-  problem: https://practice.geeksforgeeks.org/problems/edit-distance/0
-
-  solution description:
-
- FIXME: Clean code and write description of solution
-
+ EditDistance.cc
+ Author: Andrea Bisbano
+ Date: 25/01/18
+ Problem: https://practice.geeksforgeeks.org/problems/edit-distance/0
+ Solution:
+  This algorithm creates a DP table T where T[i][j] represent the edit distance between the first i
+  characters of the first string and the first j characters of the second string.
+  The first line and the first column of the row (e.g. i = 0 or j = 0) are initialized with the difference
+  between the two lengths (as only insert operation are needed). Then, for any T[i][j], there are two cases:
+  - if the last chars of both strings are the same, then it is equal to T[i-1][j-1] (e.g. the edit distance
+    is the same without considering last characters of both strings)
+  - otherwise it is the the minimium adjacent (between T[i-1][j], T[i][j-1] and T[i-1][j-1]) increased by 1.
+ Time cost:
+ Space cost:
  */
 
 #include<vector>
