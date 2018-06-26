@@ -1,14 +1,15 @@
 /*
-  LexicographicallyMaximumSubsequence.cc
-
-  author: Andrea Bisbano
-  date: 10/10/17
-  problem: http://codeforces.com/problemset/problem/196/A?locale=en
-
-  solution description:
-  F
-
- */
+ LexicographicallyMaximumSubsequence.cc
+ Author: Andrea Bisbano
+ Date: 10/10/17
+ Problem: http://codeforces.com/problemset/problem/196/A?locale=en
+ Solution:
+  This algorithms uses a greedy approach and starts processing the input string from the end and
+  add any character only if it's lexicographically larger or equal to the last added.
+  The solution is then the reverse of the string computed previously.
+ Time cost: O(n) to read the whole string one time.
+ Space cost: O(1)
+*/
 
 #include<algorithm>
 #include<iostream>
@@ -35,9 +36,7 @@ int main() {
   std::cin.tie(NULL);
 
   std::string str;
-
-  std::cin >>str;
+  std::cin >> str;
 
   std::cout << maxSubsequence(str) << std::endl;
-
 }
