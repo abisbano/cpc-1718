@@ -1,14 +1,16 @@
 /*
-  01Knapsack.cc
-
-  author: Andrea Bisbano
-  date: 24/01/18
-  problem: https://practice.geeksforgeeks.org/problems/0-1-knapsack-problem/0
-
-  solution description:
-
- FIXME: Clean code and write description of solution
-
+ 01Knapsack.cc
+ Author: Andrea Bisbano
+ Date: 24/01/18
+ Problem: https://practice.geeksforgeeks.org/problems/0-1-knapsack-problem/0
+ Solution:
+  This algorithm creats a table where each row represent an item and each column the maximum weight.
+  The element T[i][j] contains the partial solution, considering the first i elements that have a maximum
+  weight of j. If the item i doesn't fit in the knapsack, then T[i][j] = T[i-1][j]. Otherwise
+  T[i][j] is the maximum between T[i-1][j] (i.e it's chosen to not bring item i)
+  and T[i-1][j-w(i)]+v(i) (it's chosen to bring the item i).
+ Time cost: O(Wn) where W is the capacity of the knapsack.
+ Space cost: O(Wn) to store the table.
  */
 
 #include<vector>
@@ -19,7 +21,6 @@
 uint64_t knapsack(const std::vector<std::pair<uint64_t, uint64_t>> &items, uint64_t W) {
 
   size_t n = items.size();
-
   std::vector<std::vector<uint64_t>> T(n+1, std::vector<uint64_t>(W+1, 0));
 
   for (size_t i = 1; i <= n; ++i) {

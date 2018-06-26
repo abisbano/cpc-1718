@@ -1,14 +1,16 @@
 /*
-  LongestCommonSubsequence.cc
-
-  author: Andrea Bisbano
-  date: 23/01/18
-  problem: https://practice.geeksforgeeks.org/problems/longest-common-subsequence/0
-
-  solution description:
-
- FIXME: Clean code and write description of solution
-
+ LongestCommonSubsequence.cc
+ Author: Andrea Bisbano
+ Date: 23/01/18
+ Problem: https://practice.geeksforgeeks.org/problems/longest-common-subsequence/0
+ Solution:
+  this algorithm creates a DP table that stores the LCS of two substrings of the input string.
+  Given an element of the table T[i][j] its value is (T[i-1][j-1] + 1) if the ith char of the first
+  string and jth char of the second are equal, otherwise is the maximum value between the LCS
+  of one of the string without last char (e.g. max between T[i-1][j] and T[i][j-1]).
+  The solution is in the bottom right corner of the table.
+ Time cost: O(N^2) to fill the table.
+ Space cost: O(N^2) to store the table.
  */
 
 #include<vector>

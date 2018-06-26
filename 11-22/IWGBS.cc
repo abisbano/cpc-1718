@@ -1,15 +1,18 @@
 /*
-  IWGBS.cc
-
-  author: Andrea Bisbano
-  date: 22/01/18
-  problem: http://www.spoj.com/problems/IWGBS/
-
-  solution description:
-
- FIXME: Clean code and write description of solution
-
- */
+ IWGBS.cc
+ Author: Andrea Bisbano
+ Date: 22/01/18
+ Problem: http://www.spoj.com/problems/IWGBS/
+ Solution:
+  The number of N digits numbers is equal to the number of n-1 digits number with a leading `1'
+  plus the number of n-2 digits number with a leading `01'. Computing that number is equivalent to
+  compute the nth Fibonacci's number starting from F0 = 1 and F1 = 2.
+  The solution computes the required number using a DP algorithm: starting from F1 and F2, it computes
+  the number using precedent results.
+  Here the main problem was to add support for integers of more than 64 bits.
+ Time cost: O(N) to compute the Nth Fibonacci's number.
+ Space cost: O(N) to store the previous results.
+*/
 
 #include<vector>
 #include<iostream>
@@ -110,6 +113,3 @@ int main() {
 
   std::cout << fib(n) << "\n";
 }
-
-
-
