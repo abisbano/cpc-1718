@@ -1,4 +1,18 @@
-
+/*
+ MishaForest.cc
+ Author: Andrea Bisbano
+ Date: 06/11/17
+ Problem: http://codeforces.com/problemset/problem/501/C?locale=en
+ Solution:
+  This algorithm starts from any node with degree 1. In that case the XOR sum of the node is equal to its
+  only adjacent node. After a node is processed the algorithm updates the degree and the sum of both the node
+  and its adjacent. If the adjacent after the update has degree 1 then it procedes with it, otherwise
+  it continues searching for another node with degree 1.
+  Since there aren't cycles in the graph there's always at least one node with degree equals to 1 and so
+  the algorithm can find a solution.
+ Time cost: O(N) to process the N nodes of the gra
+ Space cost: O(N) to store the edges (these can't be more than the node)
+ */
 
 #include <iostream>
 #include <vector>
@@ -27,7 +41,7 @@ size_t mishaForest(std::vector<uint32_t>& degrees,
   size_t n = degrees.size();
 
   for (size_t i = 0; i < n; ++i) {
-    if (degrees[i] == 1) { // We can handle this node
+    if (degrees[i] == 1) { // This node can be handled
       createEdge(i, degrees, sums, edges);
     }
   }
@@ -36,7 +50,6 @@ size_t mishaForest(std::vector<uint32_t>& degrees,
 }
 
 int main() {
-
   std::ios_base::sync_with_stdio(false);
   std::cin.tie(NULL);
 
@@ -65,5 +78,4 @@ int main() {
   }
 
   return 0;
-
 }

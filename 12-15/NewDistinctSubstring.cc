@@ -4,9 +4,9 @@
  Date: 12/02/18
  Problem: http://www.spoj.com/problems/SUBST1/
  Solution:
-  The idea is to use a suffix array and the longest common prefix. To do so, we first compute the
-  suffix array and then we use the kasai's algorithm to compute the lcp starting from the previous
-  result.
+  This algorithm uses a suffix array and the longest common prefix. To do so, it first computes the
+  suffix array and then it uses the Kasai's algorithm to computes the LCP starting from the
+  previous result.
  Time cost: O(NlogNlogN) the cost is dominated by the computation of suffix array.
  Space cost: O(N) to store the suffix array and the lcp.
 */

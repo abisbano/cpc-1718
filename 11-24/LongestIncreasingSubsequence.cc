@@ -1,21 +1,22 @@
 /*
-  LongestIncreasingSubsequence.cc
-
-  author: Andrea Bisbano
-  date: 24/01/18
-  problem: https://practice.geeksforgeeks.org/problems/longest-increasing-subsequence/0
-
-  solution description:
-
- FIXME: Clean code and write description of solution
-
+ LongestIncreasingSubsequence.cc
+ Author: Andrea Bisbano
+ Date: 24/01/18
+ Problem: https://practice.geeksforgeeks.org/problems/longest-increasing-subsequence/0
+ Solution:
+  This algorithm creates an array E where each element is the minimum possible last value of an IS of
+  size equal to the index. At each step the algorithm processes a value V. If V is bigger than the last
+  element of E, it's added at the end of the array. Otherwise, the algorithm searches in E the first
+  value greater than V, and it replaces it in E with V.
+  The LIS is the size of the array after the algorithm has processed the whole input.
+ Time cost: O(NlogN)
+ Space cost: O(N) because the new array can't exceed the input size.
  */
 
 #include<vector>
 #include<iostream>
 #include<cassert>
 #include<algorithm>
-#include<fstream>
 
 size_t binarySearch(const std::vector<uint64_t> &v, int l, int r, uint64_t key) {
   while (r-l > 1) {
@@ -38,15 +39,12 @@ uint64_t longestIncreasingSubsequence(const std::vector<uint64_t> &sequence) {
   std::vector<uint64_t> ends(n,0);
   ends[0] = sequence[0];
   for (size_t i = 1; i < n; ++i) {
-    if (sequence[i] < ends[0]) {
-      ends[0] = sequence[i];
-    } else if (sequence[i] > ends[size-1]) {
+    if (sequence[i] > ends[size-1]) {
       ends[size++] = sequence[i];
     } else {
       ends[binarySearch(ends, -1, size-1, sequence[i])] = sequence[i];
     }
   }
-
   return size;
 }
 
@@ -62,11 +60,11 @@ int main() {
   assert(T >= 1 && T <= 100);
   for (size_t i = 0; i < T; ++i) {
     std::cin >> N;
-    assert(N >= 0 && N <= 1000);
+    assert(N <= 1000);
     sequence.reserve(N);
     for (size_t i = 0; i < N; ++i) {
       std::cin >> value;
-      assert(value >= 0 && value <= 300);
+      assert(value <= 300);
       sequence.push_back(value);
     }
 

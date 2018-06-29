@@ -4,10 +4,10 @@
  Date: 12/02/18
  Problem: https://practice.geeksforgeeks.org/problems/longest-prefix-suffix/0
  Solution:
-  The idea is to create an array LPS where for each i, LPS[i] is the maximum length of a prefix which
-  is also a suffix in the substring from char 0 to i. To do so we use the preprocessing algorithm
+  This algorithm creates and array LPS where for each i, LPS[i] is the maximum length of a prefix which
+  is also a suffix in the substring from char 0 to i. To do so it uses the preprocessing algorithm
   of KMP search.
- TODO: explain KMP algorithm
+ TODO: explain KMP
  Time cost: O(n)
  Space cost: O(n)
 */
@@ -16,7 +16,6 @@
 #include <string>
 #include <vector>
 #include <cassert>
-
 
 int computePrefixFunction(const std::string& text, size_t n) {
   std::vector<int> lps(n,0);
@@ -56,4 +55,3 @@ int main() {
   }
   return 0;
 }
-

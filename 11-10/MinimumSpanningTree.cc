@@ -5,8 +5,8 @@
  Problem: http://www.spoj.com/problems/MST/
  Solution:
   The solution to this problem is an implementation of the Krukal's algorithm.
-  We create a set for each node of the graph, then we sort the edges in non decreasing order by
-  weight. For each edge, if the two nodes belongs to two different sets they are merged in
+  For each notde of the graph it is created a set, then the edges are sorted in non decreasing
+  order by weight. For each set, if two nodes belongs to two different sets they are merged in
   one set. The set containing all nodes is the MST of that graph.
  Time cost: O(|E|+log|V|)
  Space cost: O(1)
@@ -97,7 +97,7 @@ int main() {
     std::cin >> u >> v >> w;
     assert(u >= 1 && u <= N);
     assert(v >= 1 && v <= N);
-    assert(w >= 0 && w <= 1000000);
+    assert(w <= 1000000);
     edges.emplace_back(u-1,v-1,w);
   }
 

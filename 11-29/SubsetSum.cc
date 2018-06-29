@@ -1,14 +1,19 @@
 /*
-  SubsetSum.cc
-
-  author: Andrea Bisbano
-  date: 26/01/18
-  problem: https://practice.geeksforgeeks.org/problems/subset-sum-problem/0
-
-  solution description:
-
- FIXME: Clean code and write description of solution
-
+ SubsetSum.cc
+ Author: Andrea Bisbano
+ Date: 26/01/18
+ Problem: https://practice.geeksforgeeks.org/problems/subset-sum-problem/0
+ Solution:
+  This algorithm computes the sum S of the input array A. If it's an odd number then it immediately returns
+  false, otherwise it creates a boolean DP table T of size N * (S/2), where N is the length of A.
+  The element T[i][j] represent the subproblem limited to the first i elements and to the sum j.
+  The generic element T[i][j] is true if one of these conditions holds:
+  1. T[i-1][j] is true (e.g. the latest element isn't part of the sum)
+  2. T[i-1][j - A[i-1]] is true (e.g. the latest element is part of the sum)
+  Thanks to the first condition, instead of computing the whole table it is enough to stop after
+  the algorithm finds a row there the last element is true (e.g. T[i][S] is true for any i).
+ Time cost: O(NS), where N is the lenght of input array and S the sum.
+ Space cost: O(NS) to store the whole table.
  */
 
 #include<vector>
@@ -53,17 +58,17 @@ int main() {
   assert(T >= 1 && T <= 100);
   for (size_t i = 0; i < T; ++i) {
     std::cin >> N;
-    assert(N >= 0 && N <= 100);
+    assert(N <= 100);
     sequence.reserve(N);
     sum = 0;
     for (size_t i = 0; i < N; ++i) {
       std::cin >> value;
-      assert(value >= 0 && value <= 1000);
+      assert(value <= 1000);
       sum += value;
       sequence.push_back(value);
     }
-
     std::cout << (isSubsetSum(sequence, N, sum) ? "YES" : "NO") << "\n";
+
     sequence.clear();
   }
   return 0;
