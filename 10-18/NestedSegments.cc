@@ -9,7 +9,7 @@
   sum(r) and after that we add 1 in position r of the BIT.
   We use this ordering so we can just ignore the segments we still have to process because their left
   end is outside of the current range.
- Time cost: O(nlogn) because the cost os sorting id dominating the costs of other operations (O(logn)).
+ Time cost: O(nlogn) because the cost of sorting dominates the costs of other operations (O(logn)).
  Space cost: O(n) to store the BIT.
 */
 

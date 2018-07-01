@@ -1,12 +1,19 @@
 /*
-  PashmakParmida.cc
-
-  author: Andrea Bisbano
-  date: 14/01/18
-  problem: http://codeforces.com/problemset/problem/459/D?locale=en
-
-  solution description:
- TO BE WRITTEN
+ PashmakParmida.cc
+ Author: Andrea Bisbano
+ Date: 14/01/18
+ Problem: http://codeforces.com/problemset/problem/459/D?locale=en
+ Solution description:
+  This algorithm starts by remapping the values of the input array A so that they range in [0,n-1].
+  Then it computes suffixCounter array, such that suffixCounter[i] = f(i,n,A[i]) and while doing that
+  it also computes a BIT B where B[i] is the number of entries in suffixCounter that are equal to i.
+  Then in processes the input array from left to right and, for each value A[i], it computes the value
+  k = f(1,i,A[i]) and then searches for values f(j,n,A[j]) < k.
+  To do so, it decreases the entry suffixCounter[i] of B bt 1 at each steps and then computes sum(k-1)
+  which is the values it is looking for.
+  The sum for every i is the solution to the problem.
+ Time cost: O(NlogN)
+ Space cost: O(N)
 */
 
 #include <iostream>
@@ -16,7 +23,6 @@
 
 template <typename T>
 class fenwickTree {
-private:
   size_t size;
   std::vector<T> vec;
 
@@ -65,26 +71,24 @@ size_t remap(std::vector<T> &vec) {
 }
 
 uint64_t PashmakParmida(std::vector<uint64_t> &vec) {
-
+  uint64_t result = 0;
   size_t n = vec.size();
   size_t c = remap<uint64_t>(vec);
 
   fenwickTree<uint64_t> ft(n);
-  std::vector<uint64_t> counter(c);
-  std::vector<uint64_t> suffixCounter(n);
-
+  std::vector<uint64_t> counter(c,0);
+  std::vector<uint64_t> suffixCounter(n,0);
   for (int i = n-1; i >= 0; --i) {
     ++counter[vec[i]];
     suffixCounter[i] = counter[vec[i]];
-    ft.add(counter[vec[i]], 1);
+    ft.add(counter[vec[i]],1);
   }
 
   std::fill(counter.begin(), counter.end(), 0);
-  uint64_t result = 0;
-  for (int i = 0; i < n; ++i) {
+  for (size_t i = 0; i < n; ++i) {
     ft.add(suffixCounter[i], -1);
     ++counter[vec[i]];
-    result += ft.sum(counter[vec[i]]-1);
+    result += ft.sum(counter[vec[i]] - 1);
   }
   return result;
 }
