@@ -1,13 +1,12 @@
 /*
-  PowerfulArray.cc
-
-  author: Andrea Bisbano
-  date: 14/01/18
-  problem: http://codeforces.com/contest/86/problem/D
-
-  solution description:
+ PowerfulArray.cc
+ Author: Andrea Bisbano
+ Date: 14/01/18
+ Problem: http://codeforces.com/contest/86/problem/D
+ Solution:
  
-
+ Time cost:
+ Space cost:
 */
 
 #include <iostream>
@@ -16,6 +15,13 @@
 #include <tuple>
 #include <algorithm>
 #include <cmath>
+
+struct query {
+  size_t left;
+  size_t right;
+  size_t index;
+  query(size_t l, size_t r, size_t i) : left(l), right(r), index(i) {}
+};
 
 std::vector<uint64_t> remap(std::vector<uint64_t> &vec) {
   std::vector<uint64_t> tmp(vec.size());
@@ -43,24 +49,22 @@ void add(uint64_t &S, uint64_t &c, uint64_t v) {
 }
 
 std::vector<uint64_t> powerfulArray(std::vector<uint64_t> &vec,
-                                    std::vector<std::tuple<uint64_t, uint64_t, size_t>> &queries) {
+                                    std::vector<query> &queries) {
 
   size_t n = vec.size();
-  // remap and scale the original array and save the true values.
+  // remap and scale the original array and keep the old values.
   auto values = remap(vec);
   size_t size = values.size();
 
   size_t bucketNumber = (size_t) sqrt(n);
-  std::vector<std::vector<std::tuple<uint64_t, uint64_t, size_t>>> buckets(bucketNumber);
   std::vector<uint64_t> counter(size+1,0);
   std::vector<uint64_t> result(queries.size());
 
-  std::sort(queries.begin(), queries.end(), [bucketNumber] (std::tuple<uint64_t, uint64_t, size_t> &a,
-                                              std::tuple<uint64_t, uint64_t, size_t> &b) {
-    if (std::get<0>(a)/bucketNumber != std::get<0>(b)/bucketNumber) {
-      return std::get<0>(a)/bucketNumber < std::get<0>(b)/bucketNumber;
+  std::sort(queries.begin(), queries.end(), [bucketNumber] (query &a, query &b) {
+    if (a.left/bucketNumber != b.left/bucketNumber) {
+      return a.left/bucketNumber < b.left/bucketNumber;
     }
-    return std::get<1>(a) < std::get<1>(b);
+    return a.right < b.right;
   });
 
   size_t currentL = 0, currentR = 0;
@@ -68,8 +72,12 @@ std::vector<uint64_t> powerfulArray(std::vector<uint64_t> &vec,
   counter[vec[0]] = 1;
 
   for (auto q : queries) {
-    size_t l = std::get<0>(q)-1;
-    size_t r = std::get<1>(q)-1;
+    size_t l = q.left - 1;
+    size_t r = q.right - 1;
+    while(currentL < l) {
+      remove(sum, counter[vec[currentL]], values[vec[currentL]]);
+      ++currentL;
+    }
     while (currentL > l) {
       --currentL;
       add(sum, counter[vec[currentL]], values[vec[currentL]]);
@@ -78,15 +86,11 @@ std::vector<uint64_t> powerfulArray(std::vector<uint64_t> &vec,
       ++currentR;
       add(sum, counter[vec[currentR]], values[vec[currentR]]);
     }
-    while (currentL < l) {
-      remove(sum, counter[vec[currentL]], values[vec[currentL]]);
-      ++currentL;
-    }
     while (currentR > r) {
       remove(sum, counter[vec[currentR]], values[vec[currentR]]);
       --currentR;
     }
-    result[std::get<2>(q)] = sum;
+    result[q.index] = sum;
   }
 
   return result;
@@ -101,7 +105,7 @@ int main() {
   uint64_t elem;
   std::vector<uint64_t> vec;
   size_t l, r;
-  std::vector<std::tuple<uint64_t, uint64_t, size_t>> queries;
+  std::vector<query> queries;
 
   std::cin >> n >> t;
   assert(n >= 1 && n <= 200000);
@@ -115,7 +119,7 @@ int main() {
   for (size_t i = 0; i < t; ++i) {
     std::cin >> l >> r;
     assert(l >= 1 && l <= r && r <= n);
-    queries.push_back(std::tuple<uint64_t, uint64_t, size_t>(l, r, i));
+    queries.emplace_back(l, r, i);
   }
 
   auto result = powerfulArray(vec, queries);
