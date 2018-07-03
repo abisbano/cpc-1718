@@ -4,9 +4,13 @@
  Date: 14/01/18
  Problem: http://codeforces.com/contest/86/problem/D
  Solution:
- 
- Time cost:
- Space cost:
+  This solution is an implementation of the MO's algorithm. The queries are logically divided in sqrt(n)
+  buckets, where n is the length of input array and the bucket i contains the queries with the
+  left end l < sqrt(n) * i. After the queries are sorted, the algorithm procedes computing the solution
+  using the last computed solution, moving the left and right ends of the previous query.
+  Thanks to the order of the queries, the number of operation performed is the least possible.
+ Time cost: O(Nsqrt(N))
+ Space cost: O(N) to keep a counter for each different element in the input array.
 */
 
 #include <iostream>
@@ -38,31 +42,28 @@ std::vector<uint64_t> remap(std::vector<uint64_t> &vec) {
   return values;
 }
 
-void remove(uint64_t &S, uint64_t &c, uint64_t v) {
+inline void remove(uint64_t &S, uint64_t &c, uint64_t v) {
   S = S - c*c*v + (c-1)*(c-1)*v;
   --c;
 }
 
-void add(uint64_t &S, uint64_t &c, uint64_t v) {
+inline void add(uint64_t &S, uint64_t &c, uint64_t v) {
   S = S - c*c*v + (c+1)*(c+1)*v;
   ++c;
 }
 
 std::vector<uint64_t> powerfulArray(std::vector<uint64_t> &vec,
-                                    std::vector<query> &queries) {
+                   std::vector<query> &queries) {
 
-  size_t n = vec.size();
   // remap and scale the original array and keep the old values.
   auto values = remap(vec);
-  size_t size = values.size();
-
-  size_t bucketNumber = (size_t) sqrt(n);
-  std::vector<uint64_t> counter(size+1,0);
+  std::vector<uint64_t> counter(vec.size() + 1, 0);
+  size_t buckets = (size_t) sqrt(vec.size());
   std::vector<uint64_t> result(queries.size());
 
-  std::sort(queries.begin(), queries.end(), [bucketNumber] (query &a, query &b) {
-    if (a.left/bucketNumber != b.left/bucketNumber) {
-      return a.left/bucketNumber < b.left/bucketNumber;
+  std::sort(queries.begin(), queries.end(), [buckets] (query &a, query &b) {
+    if (a.left/buckets != b.left/buckets) {
+      return a.left/buckets < b.left/buckets;
     }
     return a.right < b.right;
   });
@@ -92,9 +93,7 @@ std::vector<uint64_t> powerfulArray(std::vector<uint64_t> &vec,
     }
     result[q.index] = sum;
   }
-
   return result;
-
 }
 
 int main() {
@@ -123,6 +122,7 @@ int main() {
   }
 
   auto result = powerfulArray(vec, queries);
+
   for (auto i : result) {
     std::cout << i << "\n";
   }
