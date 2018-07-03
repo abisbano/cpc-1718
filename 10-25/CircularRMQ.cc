@@ -4,9 +4,13 @@
  Date: 02/07/18
  Problem: http://codeforces.com/problemset/problem/52/C
  Solution:
- TODO: implement lazy propagation
- Time cost:
- Space cost:
+  This code provides an implementation of a Segment tree with lazy propagation to solve the RMQ problem.
+  The segment tree is implemented using a class containing two arrays (one for the tree itself and the
+  other for the lazy tree).
+  The circular queries (L, R) with L > R are handled like two different queries,
+  the first is (0, R) and the second (L, N), where N is the size of the input array.
+ Time cost: O(mlogn) where M is the number of queries (both kind of queries require O(logn)).
+ Space cost: O(logn) to store the Segment Tree.
 */
 
 #include <iostream>
@@ -30,10 +34,12 @@ template <typename T>
 class SegmentTree {
   size_t N;
   std::vector<T> tree;
+  std::vector<T> lazy;
 
 public:
   SegmentTree(size_t n) : N(n) {
     tree = std::vector<T>(N, T());
+    lazy = std::vector<T>(N, T());
   }
 
   size_t size() {
@@ -53,15 +59,28 @@ public:
   }
 
   void update(range query, int64_t val, range segment, size_t pos) {
-//    std::cout << "update([" << query.left << ", " << query.right;
-//    std::cout << "], " << val << ", [" << segment.left << ", " << segment.right;
-//    std::cout << "], " << pos << ")\n";
+    // apply pending updates
+    if (lazy[pos] != T()) {
+      tree[pos] += lazy[pos];
+      if (segment.left != segment.right) {
+        lazy[LEFT(pos)] += lazy[pos];
+        lazy[RIGHT(pos)] += lazy[pos];
+      }
+      lazy[pos] = T();
+    }
+
+    // no overlap
     if (query.left > segment.right || query.right < segment.left) {
       return;
     }
 
-    if (segment.left == segment.right) {
+    // total overlap
+    if (query.left <= segment.left && query.right >= segment.right) {
       tree[pos] += val;
+      if (segment.left != segment.right) {
+        lazy[LEFT(pos)] += val;
+        lazy[RIGHT(pos)] += val;
+      }
       return;
     }
 
@@ -71,26 +90,25 @@ public:
     tree[pos] = std::min(tree[LEFT(pos)], tree[RIGHT(pos)]);
   }
 
-  T rmq(range q, size_t nodeL, size_t nodeR, size_t pos) {
-//    std::cout << "rmq([" << q.left << ", " << q.right;
-//    std::cout << "], [" << nodeL << ", " << nodeR;
-//    std::cout << "], " << pos << ")\n";
-    if (q.left <= nodeL && q.right >= nodeR) {
+  T rmq(range query, range segment, size_t pos) {
+    if (lazy[pos] != T()) {
+      tree[pos] += lazy[pos];
+      if (segment.left != segment.right) {
+        lazy[LEFT(pos)] += lazy[pos];
+        lazy[RIGHT(pos)] += lazy[pos];
+      }
+      lazy[pos] = T();
+    }
+
+    if (query.left <= segment.left && query.right >= segment.right) {
       return tree[pos];
     }
-    if (q.left> nodeR || q.right < nodeL) {
+    if (query.left> segment.right || query.right < segment.left) {
       return LLONG_MAX;
     }
-    size_t mid = (nodeL + nodeR) / 2;
-    return std::min(rmq(q, nodeL, mid, LEFT(pos)),
-                    rmq(q, mid + 1, nodeR, RIGHT(pos)));
-  }
-
-  void dump() {
-    for (auto i : tree) {
-      std::cout << i << " ";
-    }
-    std::cout << "\n";
+    size_t mid = (segment.left + segment.right) / 2;
+    return std::min(rmq(query, range(segment.left, mid), LEFT(pos)),
+                    rmq(query, range(mid + 1, segment.right), RIGHT(pos)));
   }
 };
 
@@ -114,7 +132,6 @@ int main() {
   size_t m = size_t(1) << static_cast<size_t>(ceil(std::log2(n)));
   SegmentTree<int64_t> tree(2 * m - 1);
   tree.build(vec, 0, n-1, 0);
-//  tree.dump();
 
   // Input queries
   size_t q, l, r;
@@ -134,10 +151,10 @@ int main() {
     } else {
       // RMQ
       if (l <= r) {
-        std::cout << tree.rmq(range(l, r), 0, n-1, 0) << "\n";
+        std::cout << tree.rmq(range(l, r), range(0, n-1), 0) << "\n";
       } else {
-        int64_t q1 = tree.rmq(range(0, r), 0, n-1, 0);
-        int64_t q2 = tree.rmq(range(l, n-1), 0, n-1, 0);
+        int64_t q1 = tree.rmq(range(0, r), range(0, n-1), 0);
+        int64_t q2 = tree.rmq(range(l, n-1), range(0, n-1), 0);
         std::cout << std::min(q1, q2) << "\n";
       }
     }
