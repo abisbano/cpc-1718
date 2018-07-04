@@ -4,9 +4,13 @@
  Date: 16/01/18
  Problem: http://codeforces.com/problemset/problem/427/C?locale=en
  Solution:
-  The idea is that this problem is equivalent to Strongly Connected Components. To solve that, we
-  compute two times DFS, the second time considering the vertex in decreasing order of finishing
-  time. Then, for each SCC we select the minimium cost node computing it while doing the second DFS.
+  This problem is equivalent to Strongly Connected Components problem. The algorithm computes two
+  DFS, the second one considering the vertices in decreasing order of the finishing time computed
+  by the first one. Then the minimum possible money needed is the sum of the minumum value
+  of each CC. The number of ways is computed by counting, for each CC, the number of checkposts
+  with cost equal to the minimum.
+  In this implementation the second DFS uses the meaning of the colors in the opposite way,
+  so the algorithm doesn't have to reset them after the first DFS finish.
  Time cost: O(N+M), the cost of the DFS.
  Space cost: O(N) to store the finishing time for each node.
  */
@@ -112,13 +116,13 @@ int main() {
 
   for (size_t i = 0; i < n; ++i) {
     std::cin >> cost;
-    assert(cost >= 0 && cost <= 1000000000);
+    assert(cost <= 1000000000);
     graph.emplace_back(cost);
     finish.emplace_back(i, 0);
   }
 
   std::cin >> m;
-  assert(m >= 0 && m <= 300000);
+  assert(m <= 300000);
 
   for (size_t i = 0; i < m; ++i) {
     std::cin >> l >> r;
