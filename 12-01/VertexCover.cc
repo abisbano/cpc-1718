@@ -22,7 +22,6 @@
 #include<iostream>
 #include<cassert>
 #include<algorithm>
-#include<climits>
 
 class tree {
   struct node {
