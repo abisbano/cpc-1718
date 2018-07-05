@@ -38,10 +38,6 @@ public:
     tree = std::vector<T>(N, T());
   }
 
-  int size() {
-    return N;
-  }
-
   void singleUpdate(int index, Range segment, int pos) {
     if (index > segment.right || index < segment.left) {
       return;
