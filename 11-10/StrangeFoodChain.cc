@@ -6,8 +6,19 @@
  Solution:
   This algorithm is an implementation of the following solution:
   https://www.quora.com/How-do-I-solve-the-strange-food-chain-question-on-SPOJ
- Time cost:
- Space cost:
+  The array `root' contains the index of the root of a that CC. At the begining root[i] = i
+  for every i, because there isn't any relation between nodes (i.e. there are N CC with only
+  1 element). The array `d' represent the relation between a node and the root of the CC.
+  It can be three different values:
+  0 -> i and d[i] are of the same species
+  1 -> i can eat d[i]
+  2 -> i can be eaten by d[i]
+  For every query, it is computed (using function `find') the root of x and y (called px and py).
+  If these values are equal (e.g. the two nodes are in the same CC) it computes the relation between
+  them as (d[x]-d[y] %3). The meaning of that value is the same as before.
+  If the values are different, the piece is true and the algorithm need to update both arrays.
+ Time cost: O(n+m) where m is the number of queries.
+ Space cost: O(n) to store the support arrays.
  */
 
 #include <iostream>
@@ -72,6 +83,7 @@ int main() {
         int h = (d[x] - d[y] - f) % 3;
         d[px] = h < 0 ? -h : -h + 3;
       }
+
     }
     std::cout << answer << "\n";
     root.clear();
