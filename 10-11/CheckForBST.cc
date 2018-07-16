@@ -38,7 +38,6 @@
  20       30 */
 
 #include <utility>
-#include <algorithm>
 
 std::pair<int, int> maybeComputeMinMax(Node* root, bool *isBST) {
   int min = root->data;
@@ -55,7 +54,7 @@ std::pair<int, int> maybeComputeMinMax(Node* root, bool *isBST) {
     if (leftMinMax.second > root->data) {
       *isBST = false;
     } else {
-      min = std::min(min, leftMinMax.first);
+      min = leftMinMax.first;
     }
   }
 
@@ -64,7 +63,7 @@ std::pair<int, int> maybeComputeMinMax(Node* root, bool *isBST) {
     if (rightMinMax.first < root->data) {
       *isBST = false;
     } else {
-      max = std::max(max, rightMinMax.second);
+      max = rightMinMax.second;
     }
   }
 
